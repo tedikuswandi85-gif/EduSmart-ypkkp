@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col select-none">
 
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2"></div>
@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-lg leading-tight">MapelSheet</h1>
-                    <p class="text-xs text-slate-400">v1.2 - Auto-Sync</p>
+                    <p class="text-xs text-slate-400 font-mono" id="app-role-badge">Mode Siswa</p>
                 </div>
             </div>
 
@@ -91,10 +91,10 @@
 
                 <button onclick="switchTab('portal-admin')" id="nav-portal-admin" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:bg-slate-800 hover:text-white">
                     <i class="fa-solid fa-user-shield w-5 text-center text-amber-500"></i>
-                    <span>Portal Admin</span>
+                    <span>Portal Pengawas</span>
                 </button>
 
-                <p class="pt-4 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Mata Pelajaran Ujian</p>
+                <p class="pt-4 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 font-bold text-slate-400">Daftar Mapel Aktif</p>
                 <div class="space-y-1 px-3">
                     <div class="flex items-center gap-2 text-xs text-slate-400 py-1">
                         <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
@@ -125,7 +125,7 @@
         </aside>
 
         <!-- CONTENT AREA -->
-        <main class="flex-1 flex flex-col overflow-hidden">
+        <main class="flex-grow flex flex-col overflow-hidden">
             <!-- Topbar / Navbar -->
             <header class="bg-white border-b border-slate-200 h-16 px-6 flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-2">
@@ -133,7 +133,7 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden sm:block">
-                        <p class="text-xs text-slate-400">Status Database</p>
+                        <p class="text-xs text-slate-400">Status Sinkronisasi</p>
                         <p class="text-sm font-semibold text-emerald-600 flex items-center gap-1.5 justify-end">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                             Tersinkronisasi
@@ -143,7 +143,7 @@
             </header>
 
             <!-- Dynamic Content Screens -->
-            <div class="flex-1 overflow-y-auto p-6" id="main-content-scroll">
+            <div class="flex-grow overflow-y-auto p-6" id="main-content-scroll">
                 
                 <!-- SCREEN: DASHBOARD -->
                 <section id="screen-dashboard" class="space-y-6">
@@ -247,8 +247,8 @@
                             
                             <form id="form-tambah-soal" onsubmit="handleTambahSoal(event)" class="space-y-4">
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Pilih Mata Pelajaran *</label>
-                                    <select id="soal-mapel" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all outline-none">
+                                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Mata Pelajaran *</label>
+                                    <select id="soal-mapel" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all outline-none disabled:bg-slate-100 disabled:text-slate-500">
                                         <option value="Matematika">Matematika</option>
                                         <option value="IPA">Sains / IPA</option>
                                         <option value="Bahasa Indonesia">Bahasa Indonesia</option>
@@ -311,7 +311,7 @@
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="text-xs text-slate-400">Filter:</span>
-                                    <select id="filter-soal-mapel" onchange="renderDaftarSoal()" class="px-2 py-1 bg-slate-50 rounded border border-slate-200 text-xs font-semibold outline-none">
+                                    <select id="filter-soal-mapel" onchange="renderDaftarSoal()" class="px-2 py-1 bg-slate-50 rounded border border-slate-200 text-xs font-semibold outline-none disabled:bg-slate-100 disabled:text-slate-500">
                                         <option value="Semua">Semua Mapel</option>
                                         <option value="Matematika">Matematika</option>
                                         <option value="IPA">IPA</option>
@@ -428,7 +428,7 @@
                                     <h3 class="font-bold text-base leading-tight" id="sheet-title-display">Sistem-Rekap-Mapel.xlsx</h3>
                                     <p class="text-[10px] text-emerald-200 flex items-center gap-1">
                                         <i class="fa-solid fa-cloud-arrow-up"></i>
-                                        Perubahan langsung tersimpan ke memori Mapel
+                                        Perubahan langsung tersimpan ke database tepercaya
                                     </p>
                                 </div>
                             </div>
@@ -487,21 +487,25 @@
                             <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-2xl mx-auto mb-3 shadow-inner">
                                 <i class="fa-solid fa-user-shield text-amber-500"></i>
                             </div>
-                            <h3 class="font-bold text-lg leading-tight uppercase tracking-wider">LOGIN PORTAL ADMIN</h3>
-                            <p class="text-xs text-slate-400 mt-1">Gunakan Akun Pengawas untuk Mengelola Sistem</p>
+                            <h3 class="font-bold text-lg leading-tight uppercase tracking-wider">LOGIN PORTAL PENGAWAS</h3>
+                            <p class="text-xs text-slate-400 mt-1">Gunakan Akun Proktor atau Akun Guru Mapel</p>
                         </div>
-                        <form onsubmit="handleAdminLogin(event)" class="p-6 space-y-4 text-xs">
+                        <form onsubmit="handlePortalLogin(event)" class="p-6 space-y-4 text-xs">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Username *</label>
-                                <input type="text" id="admin-username" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all" placeholder="admin">
+                                <input type="text" id="admin-username" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all" placeholder="admin / username_guru">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Password *</label>
                                 <input type="password" id="admin-password" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all" placeholder="••••••••">
                             </div>
-                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-150 text-[11px] text-slate-500 leading-relaxed">
-                                <i class="fa-solid fa-circle-info text-amber-500 mr-1"></i> Data Uji Coba Default: <br>
-                                Username: <code class="bg-slate-200 px-1.5 py-0.5 rounded font-bold">admin</code> / Password: <code class="bg-slate-200 px-1.5 py-0.5 rounded font-bold">admin</code>
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-150 text-[11px] text-slate-500 space-y-1 leading-relaxed">
+                                <p class="font-bold"><i class="fa-solid fa-circle-info text-amber-500 mr-1"></i> Akun Pengawas Bawaan:</p>
+                                <p>🔑 <span class="font-semibold text-slate-700">Admin Utama:</span> admin / admin</p>
+                                <p>🔑 <span class="font-semibold text-slate-700">Guru MTK:</span> guru_mtk / 123</p>
+                                <p>🔑 <span class="font-semibold text-slate-700">Guru IPA:</span> guru_ipa / 123</p>
+                                <p>🔑 <span class="font-semibold text-slate-700">Guru B.Indo:</span> guru_indo / 123</p>
+                                <p>🔑 <span class="font-semibold text-slate-700">Guru B.Inggris:</span> guru_ing / 123</p>
                             </div>
                             <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-600/15 uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2">
                                 Masuk Portal <i class="fa-solid fa-sign-in-alt"></i>
@@ -512,16 +516,16 @@
                     <!-- Logged In View -->
                     <div id="admin-profile-view" class="hidden max-w-xl mx-auto bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden mt-8">
                         <div class="bg-gradient-to-r from-emerald-600 to-teal-700 p-8 text-white text-center space-y-3">
-                            <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner border border-white/10">
+                            <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner border border-white/10" id="admin-avatar">
                                 <i class="fa-solid fa-user-shield"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-xl leading-tight">Admin Utama Aktif</h3>
-                                <p class="text-xs text-emerald-100 uppercase tracking-widest mt-1">Sesi Proktor & Pengawas Sekolah</p>
+                                <h3 class="font-bold text-xl leading-tight" id="admin-display-name">Admin Utama Aktif</h3>
+                                <p class="text-xs text-emerald-100 uppercase tracking-widest mt-1" id="admin-display-role">Sesi Proktor & Pengawas Sekolah</p>
                             </div>
                         </div>
                         <div class="p-6 space-y-4 text-center">
-                            <p class="text-sm text-slate-600 leading-relaxed">
+                            <p class="text-sm text-slate-600 leading-relaxed" id="admin-welcome-text">
                                 Anda berhasil masuk sebagai <strong>Admin</strong>. Seluruh akses pengeditan soal langsung pada simulasi spreadsheet serta rekapitulasi nilai siswa kini telah terbuka sepenuhnya.
                             </p>
                             <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
@@ -603,7 +607,7 @@
 
     <!-- MODAL: RESET CONFIRMATION -->
     <div id="reset-modal" class="fixed inset-0 bg-slate-950/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl border border-slate-200 max-w-sm w-full p-6 space-y-4 shadow-xl">
+        <div class="bg-white rounded-2xl border border-slate-200 max-sm w-full p-6 space-y-4 shadow-xl">
             <div class="text-center space-y-2">
                 <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xl mx-auto">
                     <i class="fa-solid fa-triangle-exclamation"></i>
@@ -675,13 +679,23 @@
             }
         };
 
+        // Guru/Teacher accounts data
+        const listGuru = [
+            { username: "guru_mtk", password: "123", nama: "Drs. Hermawan, M.Pd", mapel: "Matematika" },
+            { username: "guru_ipa", password: "123", nama: "Siti Rahayu, M.Si", mapel: "IPA" },
+            { username: "guru_indo", password: "123", nama: "Dewi Lestari, S.Pd", mapel: "Bahasa Indonesia" },
+            { username: "guru_ing", password: "123", nama: "Arthur Pendragon, M.Hum", mapel: "Bahasa Inggris" }
+        ];
+
         // State variables
         let db = {};
         let activeTab = "dashboard";
         let activeSheetMapel = "Matematika";
         let activeSheetType = "soal"; // 'soal' or 'nilai'
         let selectedCell = { row: null, col: null };
-        let isAdminLoggedIn = false; // State status login Admin
+        let isAdminLoggedIn = false; // State status login Admin Utama
+        let isTeacherLoggedIn = false; // State status login Guru Mapel
+        let loggedInGuru = null; // Menyimpan data guru yang sedang aktif masuk
 
         // Quiz state
         let runningQuiz = {
@@ -713,6 +727,15 @@
             const storedLogin = localStorage.getItem("is_admin_logged_in");
             if (storedLogin === "true") {
                 isAdminLoggedIn = true;
+            }
+
+            // Memeriksa status login guru dari localStorage
+            const storedGuruLogin = localStorage.getItem("is_teacher_logged_in");
+            const storedGuruData = localStorage.getItem("logged_in_guru_data");
+            if (storedGuruLogin === "true" && storedGuruData) {
+                isTeacherLoggedIn = true;
+                loggedInGuru = JSON.parse(storedGuruData);
+                activeSheetMapel = loggedInGuru.mapel; // Force sheet to match teacher's mapel
             }
 
             // Render stats and items
@@ -778,8 +801,8 @@
         // Tab navigation handler
         function switchTab(tabId) {
             // Memeriksa hak akses sebelum pindah tab
-            if ((tabId === 'kelola-soal' || tabId === 'sheet-mapel') && !isAdminLoggedIn) {
-                showToast("Akses Terkunci!", "Harap login ke Portal Admin terlebih dahulu untuk mengelola database.", "warning");
+            if ((tabId === 'kelola-soal' || tabId === 'sheet-mapel') && !isAdminLoggedIn && !isTeacherLoggedIn) {
+                showToast("Akses Terkunci!", "Harap login ke Portal Admin / Guru terlebih dahulu untuk mengelola database.", "warning");
                 switchTab('portal-admin');
                 return;
             }
@@ -824,6 +847,17 @@
             } else if (tabId === "dashboard") {
                 renderDashboardMapel();
             } else if (tabId === "kelola-soal") {
+                // Sesuai hak ajar, batasi dropdown
+                const selectMapel = document.getElementById("soal-mapel");
+                if (isTeacherLoggedIn && loggedInGuru) {
+                    selectMapel.value = loggedInGuru.mapel;
+                    selectMapel.disabled = true;
+                    document.getElementById("filter-soal-mapel").value = loggedInGuru.mapel;
+                    document.getElementById("filter-soal-mapel").disabled = true;
+                } else {
+                    selectMapel.disabled = false;
+                    document.getElementById("filter-soal-mapel").disabled = false;
+                }
                 renderDaftarSoal();
             } else if (tabId === "portal-admin") {
                 updateLockUI();
@@ -903,6 +937,10 @@
 
         // Switch to Spreadsheet mapel view immediately
         function bukaSheetSpesifik(mapel, type) {
+            if (isTeacherLoggedIn && loggedInGuru && loggedInGuru.mapel !== mapel) {
+                showToast("Akses Ditolak!", `Sebagai Guru ${loggedInGuru.mapel}, Anda hanya berhak memantau lembar Anda sendiri.`, "warning");
+                return;
+            }
             activeSheetMapel = mapel;
             activeSheetType = type;
             switchTab("sheet-mapel");
@@ -1150,51 +1188,89 @@
             const lockSheet = document.getElementById("lock-sheet-mapel");
             const adminLoginView = document.getElementById("admin-login-view");
             const adminProfileView = document.getElementById("admin-profile-view");
+            const roleBadge = document.getElementById("app-role-badge");
 
             if (isAdminLoggedIn) {
-                if (lockSoal) {
-                    lockSoal.className = "fa-solid fa-lock-open text-xs text-emerald-500";
-                }
-                if (lockSheet) {
-                    lockSheet.className = "fa-solid fa-lock-open text-xs text-emerald-500";
-                }
+                if (lockSoal) lockSoal.className = "fa-solid fa-lock-open text-xs text-emerald-500";
+                if (lockSheet) lockSheet.className = "fa-solid fa-lock-open text-xs text-emerald-500";
                 if (adminLoginView) adminLoginView.classList.add("hidden");
                 if (adminProfileView) adminProfileView.classList.remove("hidden");
+                if (roleBadge) roleBadge.innerText = "Mode Proktor";
+                
+                document.getElementById("admin-avatar").innerHTML = `<i class="fa-solid fa-user-shield text-amber-500"></i>`;
+                document.getElementById("admin-display-name").innerText = "Admin Utama Aktif";
+                document.getElementById("admin-display-role").innerText = "Sesi Proktor & Pengawas Sekolah";
+                document.getElementById("admin-welcome-text").innerHTML = "Anda berhasil masuk sebagai <strong>Admin Utama</strong>. Seluruh akses pengeditan dan pemantauan spreadsheet soal serta rekapitulasi nilai siswa dari semua mata pelajaran kini terbuka secara global.";
+            } else if (isTeacherLoggedIn && loggedInGuru) {
+                if (lockSoal) lockSoal.className = "fa-solid fa-lock-open text-xs text-blue-400";
+                if (lockSheet) lockSheet.className = "fa-solid fa-lock-open text-xs text-blue-400";
+                if (adminLoginView) adminLoginView.classList.add("hidden");
+                if (adminProfileView) adminProfileView.classList.remove("hidden");
+                if (roleBadge) roleBadge.innerText = "Guru: " + loggedInGuru.mapel;
+                
+                document.getElementById("admin-avatar").innerHTML = `<i class="fa-solid fa-chalkboard-user text-blue-400"></i>`;
+                document.getElementById("admin-display-name").innerText = loggedInGuru.nama;
+                document.getElementById("admin-display-role").innerText = "Guru Mapel: " + loggedInGuru.mapel;
+                document.getElementById("admin-welcome-text").innerHTML = `Anda berhasil masuk sebagai guru pengampu mata pelajaran <strong>${loggedInGuru.mapel}</strong>. Anda memiliki izin sinkronisasi soal dan penulisan spreadsheet khusus untuk piringan kuis ${loggedInGuru.mapel} saja.`;
             } else {
-                if (lockSoal) {
-                    lockSoal.className = "fa-solid fa-lock text-xs text-slate-500";
-                }
-                if (lockSheet) {
-                    lockSheet.className = "fa-solid fa-lock text-xs text-slate-500";
-                }
+                if (lockSoal) lockSoal.className = "fa-solid fa-lock text-xs text-slate-500";
+                if (lockSheet) lockSheet.className = "fa-solid fa-lock text-xs text-slate-500";
                 if (adminLoginView) adminLoginView.classList.remove("hidden");
                 if (adminProfileView) adminProfileView.classList.add("hidden");
+                if (roleBadge) roleBadge.innerText = "Mode Siswa";
             }
         }
 
-        // Memproses Verifikasi Login Admin Proktor
-        function handleAdminLogin(event) {
+        // Memproses Verifikasi Login Pengawas (Admin Utama / Guru Mapel)
+        function handlePortalLogin(event) {
             event.preventDefault();
             const user = document.getElementById("admin-username").value.trim();
             const pass = document.getElementById("admin-password").value.trim();
 
             if (user === "admin" && pass === "admin") {
                 isAdminLoggedIn = true;
+                isTeacherLoggedIn = false;
+                loggedInGuru = null;
                 localStorage.setItem("is_admin_logged_in", "true");
+                localStorage.setItem("is_teacher_logged_in", "false");
+                localStorage.removeItem("logged_in_guru_data");
+                
                 updateLockUI();
-                showToast("Login Berhasil", "Akses penuh Kelola Soal & Sheet Mapel terbuka!", "success");
+                showToast("Login Berhasil", "Akses Proktor Utama terbuka!", "success");
                 switchTab("sheet-mapel");
             } else {
-                showToast("Login Gagal", "Username atau password proktor salah.", "error");
+                // Cari kecocokan di database guru bawaan
+                const matchGuru = listGuru.find(g => g.username === user && g.password === pass);
+                if (matchGuru) {
+                    isTeacherLoggedIn = true;
+                    isAdminLoggedIn = false;
+                    loggedInGuru = matchGuru;
+                    activeSheetMapel = matchGuru.mapel; // Pindahkan fokus spreadsheet otomatis ke mapel guru tersebut
+                    
+                    localStorage.setItem("is_teacher_logged_in", "true");
+                    localStorage.setItem("is_admin_logged_in", "false");
+                    localStorage.setItem("logged_in_guru_data", JSON.stringify(matchGuru));
+                    
+                    updateLockUI();
+                    showToast("Login Berhasil", `Selamat bekerja pengampu Mapel ${matchGuru.mapel}!`, "success");
+                    switchTab("sheet-mapel");
+                } else {
+                    showToast("Login Gagal", "Kredensial username atau sandi salah.", "error");
+                }
             }
         }
 
-        // Memproses Sesi Logout Keluar dari Akun Proktor
+        // Memproses Sesi Logout Keluar dari Akun Proktor/Guru
         function handleAdminLogout() {
             isAdminLoggedIn = false;
+            isTeacherLoggedIn = false;
+            loggedInGuru = null;
             localStorage.setItem("is_admin_logged_in", "false");
+            localStorage.setItem("is_teacher_logged_in", "false");
+            localStorage.removeItem("logged_in_guru_data");
+            
             updateLockUI();
-            showToast("Logout Berhasil", "Sesi admin telah ditutup.", "info");
+            showToast("Logout Berhasil", "Sesi login pengawas telah ditutup.", "info");
             switchTab("dashboard");
         }
 
@@ -1307,6 +1383,11 @@
             container.innerHTML = "";
 
             for (let mapel in db) {
+                // Jika Guru masuk, jangan tampilkan tab mapel lain
+                if (isTeacherLoggedIn && loggedInGuru && loggedInGuru.mapel !== mapel) {
+                    continue;
+                }
+
                 const isActive = activeSheetMapel === mapel;
                 const tab = document.createElement("button");
                 tab.onclick = () => {
