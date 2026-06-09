@@ -481,7 +481,7 @@
                     <div class="grid grid-cols-3 gap-2 text-xs pt-4 border-t border-slate-200">
                         <div>
                             <span class="block text-slate-400">Benar</span>
-                            <span class="font-bold text-slate-800 text-sm font-mono" id="result-correct font-mono" id="result-correct">4</span>
+                            <span class="font-bold text-slate-800 text-sm font-mono" id="result-correct">4</span>
                         </div>
                         <div>
                             <span class="block text-slate-400">Salah</span>
@@ -869,7 +869,7 @@
                         <!-- TABEL DAFTAR SOAL AKTIF -->
                         <div class="bg-white p-5 rounded-lg shadow-sm border border-slate-300 space-y-4">
                             <div class="border-b pb-2 flex justify-between items-center flex-wrap gap-2">
-                                <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider"><i class="fa-solid fa-database mr-1.5"></i>Manajemen Bank Soal Aktif</h3>
+                                <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider"><i class="fa-solid fa-database mr-1.5"></i>Manajemen Bank Soal Hack Aktif</h3>
                                 <div class="flex items-center space-x-2">
                                     <button onclick="exportQuestionsCSV()" class="bg-anbk-primary hover:bg-blue-900 text-white font-bold px-3 py-1.5 rounded text-[10px] uppercase tracking-wider transition">
                                         <i class="fa-solid fa-file-export mr-1"></i> Ekspor CSV Soal
@@ -931,7 +931,8 @@
                                 <div class="border p-4 rounded-lg bg-slate-50 space-y-2">
                                     <span class="block font-bold text-slate-700 uppercase text-[10px]">Sinkron Google Sheets (Server Utama)</span>
                                     <div class="space-y-1.5">
-                                        <input type="text" id="admin-sheet-csv-url" class="w-full px-3 py-1.5 border rounded text-[10px]" placeholder="Link CSV Google Sheets">
+                                        <input type="text" id="admin-sheet-csv-url" class="w-full px-3 py-1.5 border rounded text-[10px]" placeholder="Link CSV Google Sheets Soal">
+                                        <input type="text" id="admin-student-csv-url" class="w-full px-3 py-1.5 border rounded text-[10px]" placeholder="Link CSV Google Sheets Siswa (Opsional)">
                                         <input type="text" id="admin-form-post-url" class="w-full px-3 py-1.5 border rounded text-[10px]" placeholder="Link POST Google Form">
                                         <button onclick="saveAdminConfigFromPanel()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 rounded text-[10px] uppercase tracking-wider transition">
                                             Simpan Tautan Cloud
@@ -1064,6 +1065,8 @@
             { nis: "G-2026002", name: "BELLA CITRA LESTARI", kelas: "9", rombel: "B", password: "passbella", room: "RUANG 02", shift: "SIANG" }
         ];
 
+        let allStudents = [...defaultStudents];
+
         // --- DATABASE GURU MAPEL (DAFTAR HAK AKSES MENGAJAR MULTI ROMBEL & LINTAS TINGKAT) ---
         const defaultTeachers = [
             { username: "guru1", password: "123", name: "Ibu Heni Herawati, S.Pd", subject: "Evaluasi Literasi - Sains Terpadu", kelas: "7,8,9", rombel: "A,B" }
@@ -1072,7 +1075,6 @@
         // --- GLOBAL STATES ---
         let currentTab = 'dashboard';
         let allQuestions = [...defaultQuestions]; 
-        let allStudents = [...defaultStudents];
         let allTeachers = [...defaultTeachers];
         let filteredQuestions = []; 
         let studentAnswers = {}; 
@@ -1474,7 +1476,7 @@
                     validationBox.className = "p-3.5 rounded text-xs font-semibold leading-relaxed border bg-emerald-50 border-emerald-200 text-emerald-800 flex items-start space-x-2";
                     validationBox.innerHTML = `
                         <i class="fa-solid fa-circle-check mt-0.5 text-emerald-600"></i> 
-                        <span>Akses Disetujui! Anda terverifikasi sebagai peserta Kelas ${activeStudentData.kelas}-${activeStudentData.rombel} dan jadwal ujian aktif hari ini.</span>
+                        <span>Akses Disetujui! Anda terverifikasi sebagai peserta Kelas ${activeStudentData.kelas}-${activeStudentData.rombel} and jadwal ujian aktif hari ini.</span>
                     `;
                     validationBox.classList.remove('hidden');
                 }
@@ -1723,18 +1725,13 @@
             }, 1000);
         }
 
-        function resetCBT() {
-            document.getElementById('cbt-result-screen').classList.add('hidden');
-            document.getElementById('cbt-confirm-screen').classList.add('hidden');
-            document.getElementById('cbt-exam-screen').classList.add('hidden');
-            document.getElementById('cbt-login-screen').classList.remove('hidden');
-            document.getElementById('sub-navbar').classList.remove('hidden');
+        // --- SUBMIT EXAM LOGIC ---
+        function openFinishModal() {
+            document.getElementById('finish-modal').classList.remove('hidden');
+        }
 
-            document.getElementById('input-username').value = '';
-            document.getElementById('input-password').value = '';
-            document.getElementById('input-token').value = '';
-
-            generateToken();
+        function closeFinishModal() {
+            document.getElementById('finish-modal').classList.add('hidden');
         }
 
         // --- MANAJEMEN AKUN PESERTA (SINGLE & BULK) ---
@@ -2097,17 +2094,6 @@
             }
         }
 
-        // --- FUNGSI TOGGLE CEPAT STATUS SOAL (BUKA / TUTUP) ---
-        function toggleQuestionStatus(originalIdx) {
-            const q = allQuestions[originalIdx];
-            if (!q) return;
-
-            q.status = (q.status === "nonaktif") ? "aktif" : "nonaktif";
-            showToast(`Status soal berhasil diubah menjadi: ${q.status === 'aktif' ? 'BUKA (AKTIF)' : 'TUTUP (NONAKTIF)'}`);
-            renderAdminQuestionsTable();
-            populateSubjectSelect();
-        }
-
         // --- FUNGSI UTAMA RENDER TABEL BANK SOAL ADMIN & GURU (PENTING) ---
         function renderAdminQuestionsTable() {
             const tbody = document.getElementById('admin-questions-tbody');
@@ -2182,116 +2168,131 @@
             });
         }
 
-        // --- PORTAL LOGIN & WORKSPACE SYSTEM ---
-        function renderPortalView() {
-            const token = localStorage.getItem('portal_token');
-            const role = localStorage.getItem('portal_role');
+        // --- FUNGSI TOGGLE CEPAT STATUS SOAL (BUKA / TUTUP) ---
+        function toggleQuestionStatus(originalIdx) {
+            const q = allQuestions[originalIdx];
+            if (!q) return;
 
-            if (token && role) {
-                currentUserRole = role;
-                document.getElementById('admin-login-view').classList.add('hidden');
-                document.getElementById('admin-dashboard-view').classList.remove('hidden');
-                
-                if (role === 'admin') {
-                    document.getElementById('portal-session-role').innerHTML = `<span class="text-red-600 font-black">[ADMIN]</span> Pengawas Sistem Utama`;
-                    document.getElementById('portal-mapel-badge').textContent = `Mata Pelajaran: Semua`;
-                    document.getElementById('proktor-admin-only-panel').classList.remove('hidden');
-                    document.getElementById('proktor-teachers-panel').classList.remove('hidden'); 
-                    
-                    document.getElementById('admin-sheet-csv-url').value = localStorage.getItem('sheet_csv_url') || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLM2ZKdwouLrCIvRtb3r_F5DjpgVVQNBETs8NZGLy8HpLvAZjY__UZhpR-XmG7csmnZY3pZx0sBGFe/pub?gid=0&single=true&output=csv';
-                    document.getElementById('admin-form-post-url').value = localStorage.getItem('form_post_url') || 'https://docs.google.com/forms/d/e/1FAIpQLScnsskua5VsMVE0g_QfejuEI8o1_ea2vfR9jDMO2CTuty2Zhw/viewform?usp=publish-editor';
-                    
-                    document.getElementById('form-subject').disabled = false;
-                    document.getElementById('form-target-kelas').disabled = false;
-                    
-                    renderRombelCheckboxes('admin');
-                    resetQuestionForm();
+            q.status = (q.status === "nonaktif") ? "aktif" : "nonaktif";
+            showToast(`Status soal berhasil diubah menjadi: ${q.status === 'aktif' ? 'BUKA (AKTIF)' : 'TUTUP (NONAKTIF)'}`);
+            renderAdminQuestionsTable();
+            populateSubjectSelect();
+        }
+
+        // --- FUNGSI MANAJEMEN TOKEN SECARA MANUAL ---
+        function updateManualToken() {
+            const manualTokenInput = document.getElementById('admin-manual-token');
+            if (!manualTokenInput) return;
+
+            const manualToken = manualTokenInput.value.trim().toUpperCase();
+            if (manualToken.length < 3) {
+                showToast("Token harus terdiri dari minimal 3 karakter!");
+                return;
+            }
+            globalToken = manualToken;
+            document.getElementById('token-code-val').textContent = manualToken;
+            const tokenBox = document.getElementById('token-box-indicator');
+            if (tokenBox) {
+                tokenBox.textContent = manualToken;
+            }
+            showToast(`Token berhasil diubah menjadi: ${manualToken}`);
+        }
+
+        // --- FUNGSI PILIHAN LMS KATEGORI ---
+        function selectLmsCategory(cat) {
+            const numBtn = document.getElementById('lms-cat-numerasi');
+            const readBtn = document.getElementById('lms-cat-membaca');
+            if (numBtn) numBtn.className = "p-3 bg-slate-100 text-slate-700 font-semibold rounded-lg cursor-pointer text-xs uppercase hover:bg-slate-200";
+            if (readBtn) readBtn.className = "p-3 bg-slate-100 text-slate-700 font-semibold rounded-lg cursor-pointer text-xs uppercase hover:bg-slate-200";
+            
+            const activeEl = document.getElementById(`lms-cat-${cat}`);
+            if (activeEl) {
+                activeEl.className = "p-3 bg-anbk-primary text-white font-semibold rounded-lg cursor-pointer text-xs uppercase";
+            }
+
+            const contentBox = document.getElementById('lms-content-box');
+            if (contentBox) {
+                if (cat === 'numerasi') {
+                    contentBox.innerHTML = `
+                        <h4 class="font-bold text-slate-800 text-lg">Literasi Numerasi (Matematika)</h4>
+                        <p class="text-xs text-slate-500 mt-1">Fokus pada penalaran matematika mengenai bilangan, aljabar, geometri, dan analisis data.</p>
+                        <div class="mt-6 space-y-4 text-sm text-slate-600 leading-relaxed">
+                            <h5 class="font-semibold text-slate-800">Contoh Kisi-Kisi Soal ANBK:</h5>
+                            <p>Siswa diharapkan mampu menganalisis sistem persamaan linear dua variabel dalam studi kasus nyata lingkungan sosial-ekonomi masyarakat.</p>
+                            <div class="bg-white border p-4 rounded-lg font-mono text-xs text-anbk-primary">
+                                Kompetensi: Representasi Aljabar<br>
+                                Domain: Bilangan & Struktur Aljabar<br>
+                                Level Kognitif: L2 (Aplikasi)
+                            </div>
+                        </div>
+                    `;
                 } else {
-                    const savedTeacherObj = localStorage.getItem('portal_teacher_data');
-                    if (savedTeacherObj) {
-                        selectedGuruData = JSON.parse(savedTeacherObj);
-                        
-                        document.getElementById('portal-session-role').innerHTML = `<span class="text-blue-600 font-black">[GURU]</span> ${selectedGuruData.name}`;
-                        document.getElementById('portal-mapel-badge').textContent = `Mengajar: Kelas ${selectedGuruData.kelas} (Rombel: ${selectedGuruData.rombel}) (Mapel: ${selectedGuruData.subject})`;
-                        
-                        document.getElementById('proktor-admin-only-panel').classList.add('hidden');
-                        document.getElementById('proktor-teachers-panel').classList.add('hidden'); 
-                        
-                        document.getElementById('form-subject').value = selectedGuruData.subject;
-                        document.getElementById('form-subject').disabled = true;
-                        
-                        const allowedClasses = selectedGuruData.kelas ? selectedGuruData.kelas.split(',') : [];
-                        const targetClassSelect = document.getElementById('form-target-kelas');
-                        if (targetClassSelect) {
-                            targetClassSelect.innerHTML = '';
-                            allowedClasses.forEach(cls => {
-                                const opt = document.createElement('option');
-                                opt.value = cls;
-                                opt.textContent = `Kelas ${cls}`;
-                                targetClassSelect.appendChild(opt);
-                            });
-                            targetClassSelect.disabled = false;
-                        }
+                    contentBox.innerHTML = `
+                        <h4 class="font-bold text-slate-800 text-lg">Literasi Membaca (Bahasa Indonesia & Inggris)</h4>
+                        <p class="text-xs text-slate-500 mt-1">Memahami, menggunakan, mengevaluasi, dan merefleksikan berbagai jenis teks untuk menyelesaikan masalah.</p>
+                        <div class="mt-6 space-y-4 text-sm text-slate-600 leading-relaxed">
+                            <h5 class="font-semibold text-slate-800">Contoh Kisi-Kisi Soal ANBK:</h5>
+                            <p>Menganalisis teks informasi ilmiah kompleks untuk mengambil kesimpulan logis mengenai perubahan iklim global berdasarkan argumentasi penulis.</p>
+                            <div class="bg-white border p-4 rounded-lg font-mono text-xs text-anbk-primary">
+                                Kompetensi: Evaluasi & Refleksi Informasi<br>
+                                Domain: Teks Informasi Ilmiah<br>
+                                Level Kognitif: L3 (Evaluasi Tinggi)
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
 
-                        const allowedRombels = selectedGuruData.rombel ? selectedGuruData.rombel.split(',').map(r => r.trim().toUpperCase()) : [];
-                        renderRombelCheckboxes('guru', allowedRombels);
+        // --- SISTEM SINKRONISASI ONLINE DATA SISWA DARI CLOUD ---
+        function loadStudentsFromCSV(url) {
+            if (!url) return;
+            Papa.parse(url, {
+                download: true,
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    const parsedData = Array.isArray(results.data) ? results.data : [];
+                    if (parsedData.length > 0) {
+                        allStudents = parsedData.map(s => {
+                            const nis = (s.nomor_peserta || s.nis || "").trim().toUpperCase();
+                            const name = (s.nama_lengkap || s.name || "").trim().toUpperCase();
+                            const kelas = (s.kelas || "8").trim();
+                            const rombel = (s.rombel || "A").trim().toUpperCase();
+                            const password = (s.password || "123").trim();
+                            const room = (s.nomor_ruang || s.room || "RUANG 01").trim().toUpperCase();
+                            const shift = (s.shift || "PAGI").trim().toUpperCase();
+                            return { nis, name, kelas, rombel, password, room, shift };
+                        }).filter(s => s.nis !== "" && s.name !== "");
+
+                        localStorage.setItem('local_student_accounts', JSON.stringify(allStudents));
+                        renderAdminStudentsTable();
+                        populateSubjectSelect();
+                        showToast("Berhasil sinkronisasi " + allStudents.length + " data peserta dari Google Sheets!");
                     }
+                },
+                error: function(err) {
+                    console.error("Gagal sinkron data siswa:", err);
+                    showToast("Gagal memuat data siswa online. Periksa tautan CSV!");
                 }
-
-                renderAdminQuestionsTable();
-                renderAdminStudentsTable();
-                renderAdminTeachersTable();
-                renderTeacherRombelCheckboxes();
-            } else {
-                document.getElementById('admin-login-view').classList.remove('hidden');
-                document.getElementById('admin-dashboard-view').classList.add('hidden');
-            }
-        }
-
-        function handlePortalLogin(event) {
-            event.preventDefault();
-            const user = document.getElementById('portal-username').value.trim();
-            const pass = document.getElementById('portal-password').value.trim();
-
-            if (user === 'admin' && pass === 'admin') {
-                localStorage.setItem('portal_token', 'session_admin_secure');
-                localStorage.setItem('portal_role', 'admin');
-                localStorage.removeItem('portal_teacher_data');
-                showToast("Login Admin Berhasil!");
-                renderPortalView();
-            } else {
-                const matchedTeacher = allTeachers.find(t => t.username.toLowerCase() === user.toLowerCase() && t.password === pass);
-                if (matchedTeacher) {
-                    localStorage.setItem('portal_token', 'session_teacher_secure');
-                    localStorage.setItem('portal_role', 'guru');
-                    localStorage.setItem('portal_teacher_data', JSON.stringify(matchedTeacher));
-                    selectedGuruData = matchedTeacher;
-                    showToast("Login Guru Berhasil! (Mengajar Kelas " + matchedTeacher.kelas + " Rombel " + matchedTeacher.rombel + ")");
-                    renderPortalView();
-                } else {
-                    showToast("ID Pengguna atau Password salah!");
-                }
-            }
-        }
-
-        function handlePortalLogout() {
-            localStorage.removeItem('portal_token');
-            localStorage.removeItem('portal_role');
-            localStorage.removeItem('portal_teacher_data');
-            currentUserRole = null;
-            selectedGuruData = null;
-            showToast("Anda telah keluar dari Portal Proktor.");
-            renderPortalView();
+            });
         }
 
         // --- SINKRONISASI ONLINE ---
         function saveAdminConfigFromPanel() {
             const csvUrl = document.getElementById('admin-sheet-csv-url').value.trim();
+            const studentCsvUrl = document.getElementById('admin-student-csv-url').value.trim();
             const formPost = document.getElementById('admin-form-post-url').value.trim();
 
             if (csvUrl) {
                 localStorage.setItem('sheet_csv_url', csvUrl);
                 loadQuestionsFromCSV(csvUrl);
+            }
+            if (studentCsvUrl) {
+                localStorage.setItem('sheet_student_csv_url', studentCsvUrl);
+                loadStudentsFromCSV(studentCsvUrl);
+            } else {
+                localStorage.removeItem('sheet_student_csv_url');
             }
             if (formPost) {
                 localStorage.setItem('form_post_url', formPost);
@@ -2315,15 +2316,21 @@
 
         function resetConfigToDefault() {
             localStorage.removeItem('sheet_csv_url');
+            localStorage.removeItem('sheet_student_csv_url');
             localStorage.removeItem('form_post_url');
+            localStorage.removeItem('local_student_accounts');
+            
             if (document.getElementById('sheet-csv-url')) document.getElementById('sheet-csv-url').value = '';
+            if (document.getElementById('admin-student-csv-url')) document.getElementById('admin-student-csv-url').value = '';
             if (document.getElementById('form-post-url')) document.getElementById('form-post-url').value = '';
             
             allQuestions = [...defaultQuestions];
+            allStudents = [...defaultStudents];
             updateBadgeState(false);
             populateSubjectSelect();
+            renderAdminStudentsTable();
             if (currentUserRole) renderAdminQuestionsTable();
-            showToast("Konfigurasi bank soal dikembalikan ke setelan awal.");
+            showToast("Konfigurasi dikembalikan ke setelan awal.");
         }
 
         function loadQuestionsFromCSV(url) {
@@ -2374,56 +2381,30 @@
             }
         }
 
-        // --- FUNGSI PILIHAN LMS KATEGORI ---
-        function selectLmsCategory(cat) {
-            const numBtn = document.getElementById('lms-cat-numerasi');
-            const readBtn = document.getElementById('lms-cat-membaca');
-            if (numBtn) numBtn.className = "p-3 bg-slate-100 text-slate-700 font-semibold rounded-lg cursor-pointer text-xs uppercase hover:bg-slate-200";
-            if (readBtn) readBtn.className = "p-3 bg-slate-100 text-slate-700 font-semibold rounded-lg cursor-pointer text-xs uppercase hover:bg-slate-200";
-            
-            const activeEl = document.getElementById(`lms-cat-${cat}`);
-            if (activeEl) {
-                activeEl.className = "p-3 bg-anbk-primary text-white font-semibold rounded-lg cursor-pointer text-xs uppercase";
-            }
-
-            const contentBox = document.getElementById('lms-content-box');
-            if (contentBox) {
-                if (cat === 'numerasi') {
-                    contentBox.innerHTML = `
-                        <h4 class="font-bold text-slate-800 text-lg">Literasi Numerasi (Matematika)</h4>
-                        <p class="text-xs text-slate-500 mt-1">Fokus pada penalaran matematika mengenai bilangan, aljabar, geometri, dan analisis data.</p>
-                        <div class="mt-6 space-y-4 text-sm text-slate-600 leading-relaxed">
-                            <h5 class="font-semibold text-slate-800">Contoh Kisi-Kisi Soal ANBK:</h5>
-                            <p>Siswa diharapkan mampu menganalisis sistem persamaan linear dua variabel dalam studi kasus nyata lingkungan sosial-ekonomi masyarakat.</p>
-                            <div class="bg-white border p-4 rounded-lg font-mono text-xs text-anbk-primary">
-                                Kompetensi: Representasi Aljabar<br>
-                                Domain: Bilangan & Struktur Aljabar<br>
-                                Level Kognitif: L2 (Aplikasi)
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    contentBox.innerHTML = `
-                        <h4 class="font-bold text-slate-800 text-lg">Literasi Membaca (Bahasa Indonesia & Inggris)</h4>
-                        <p class="text-xs text-slate-500 mt-1">Memahami, menggunakan, mengevaluasi, dan merefleksikan berbagai jenis teks untuk menyelesaikan masalah.</p>
-                        <div class="mt-6 space-y-4 text-sm text-slate-600 leading-relaxed">
-                            <h5 class="font-semibold text-slate-800">Contoh Kisi-Kisi Soal ANBK:</h5>
-                            <p>Menganalisis teks informasi ilmiah kompleks untuk mengambil kesimpulan logis mengenai perubahan iklim global berdasarkan argumentasi penulis.</p>
-                            <div class="bg-white border p-4 rounded-lg font-mono text-xs text-anbk-primary">
-                                Kompetensi: Evaluasi & Refleksi Informasi<br>
-                                Domain: Teks Informasi Ilmiah<br>
-                                Level Kognitif: L3 (Evaluasi Tinggi)
-                            </div>
-                        </div>
-                    `;
-                }
-            }
-        }
-
         // --- WINDOW LOAD INITIALIZER ---
         window.onload = function() {
             generateToken();
 
+            // Default Cloud Configuration (Tautan milik sekolah Anda secara permanen)
+            const defaultCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLM2ZKdwouLrCIvRtb3r_F5DjpgVVQNBETs8NZGLy8HpLvAZjY__UZhpR-XmG7csmnZY3pZx0sBGFe/pub?gid=0&single=true&output=csv';
+            const defaultFormPost = 'https://docs.google.com/forms/d/e/1FAIpQLScnsskua5VsMVE0g_QfejuEI8o1_ea2vfR9jDMO2CTuty2Zhw/viewform?usp=publish-editor';
+            const defaultStudentCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSAQKWNsQNwzFGbiFhh-UWb4MrcxNuGq25sAWQmYRapdf8lv56q0OAKEPVEU69CgPBNcVF8XUxYWIsX/pub?output=csv';
+
+            // Set ke localStorage saat pertama kali dimuat jika belum ada
+            if (!localStorage.getItem('sheet_csv_url')) {
+                localStorage.setItem('sheet_csv_url', defaultCSV);
+            }
+            if (!localStorage.getItem('sheet_student_csv_url')) {
+                localStorage.setItem('sheet_student_csv_url', defaultStudentCSV);
+            }
+            if (!localStorage.getItem('form_post_url')) {
+                localStorage.setItem('form_post_url', defaultFormPost);
+            }
+
+            const savedCSV = localStorage.getItem('sheet_csv_url') || defaultCSV;
+            const savedStudentCSV = localStorage.getItem('sheet_student_csv_url') || defaultStudentCSV;
+
+            // Memuat database akun siswa kustom
             const savedStudents = localStorage.getItem('local_student_accounts');
             if (savedStudents) {
                 allStudents = JSON.parse(savedStudents);
@@ -2431,6 +2412,14 @@
                 localStorage.setItem('local_student_accounts', JSON.stringify(allStudents));
             }
 
+            // Jika ada link Google Sheets khusus Siswa, muat langsung secara otomatis
+            if (savedStudentCSV) {
+                loadStudentsFromCSV(savedStudentCSV);
+            } else {
+                renderAdminStudentsTable();
+            }
+
+            // Memuat database akun Guru Mapel dari lokal jika ada
             const savedTeachers = localStorage.getItem('local_teacher_accounts');
             if (savedTeachers) {
                 allTeachers = JSON.parse(savedTeachers);
@@ -2438,14 +2427,8 @@
                 localStorage.setItem('local_teacher_accounts', JSON.stringify(allTeachers));
             }
 
-            const savedCSV = localStorage.getItem('sheet_csv_url');
-            const savedFormPost = localStorage.getItem('form_post_url');
-
-            if (savedCSV) {
-                loadQuestionsFromCSV(savedCSV);
-            } else {
-                populateSubjectSelect();
-            }
+            // Memuat data soal dari CSV default secara otomatis
+            loadQuestionsFromCSV(savedCSV);
         };
     </script>
 </body>
