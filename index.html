@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduSmart - CBT SMP YPKKP BANDUNG</title>
+    <title>EduSmart - CBT ANBK & LMS Kemendikbud Standar</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -75,8 +75,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-base md:text-lg font-bold tracking-wider leading-none">CBT EduSmart</h1>
-                    <span class="text-[10px] md:text-xs text-slate-300 font-semibold uppercase tracking-widest">Yayasan Pendidikan dan Kebudayaan Karya Pembangunan</span>
+                    <h1 class="text-base md:text-lg font-bold tracking-wider leading-none">ASESMEN NASIONAL</h1>
+                    <span class="text-[10px] md:text-xs text-slate-300 font-semibold uppercase tracking-widest">Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi</span>
                 </div>
             </div>
             
@@ -196,8 +196,8 @@
             <!-- ANBK LOGIN SCREEN (Tahap 1) -->
             <div id="cbt-login-screen" class="max-w-md mx-auto bg-white rounded-lg shadow-lg border border-slate-300 overflow-hidden">
                 <div class="bg-anbk-primary p-5 text-white text-center border-b-4 border-anbk-accent">
-                    <h3 class="text-lg font-extrabold tracking-wider">PORTAL LOGIN ASESMEN</h3>
-                    <p class="text-[10px] text-slate-300">Gunakan Akun Yang Terdaftar Pada Satuan Pendidikan</p>
+                    <h3 class="text-lg font-extrabold tracking-wider">PORTAL LOGIN ANBK</h3>
+                    <p class="text-[10px] text-slate-300">Gunakan Akun Yang Terdaftar Pada Dapodik</p>
                 </div>
 
                 <form onsubmit="handleInitialLogin(event)" class="p-6 space-y-4">
@@ -241,8 +241,8 @@
 
                     <div class="bg-blue-50 border border-blue-200 p-3 rounded text-[11px] text-blue-800 leading-relaxed">
                         <i class="fa-solid fa-circle-info mr-1"></i> Data Uji Coba Default: <br>
-                        Nomor Peserta: <code class="bg-blue-100 px-1 rounded font-bold">P-2007001</code> / Pass: <code class="bg-blue-100 px-1 rounded font-bold">passbudi</code> (8-A / Ruang 1)<br>
-                        Nomor Peserta: <code class="bg-blue-100 px-1 rounded font-bold">P-2008001</code> / Pass: <code class="bg-blue-100 px-1 rounded font-bold">passbella</code> (9-B / Ruang 2)
+                        Nomor Peserta: <code class="bg-blue-100 px-1 rounded font-bold">G-2026001</code> / Pass: <code class="bg-blue-100 px-1 rounded font-bold">passbudi</code> (8-A / Ruang 1)<br>
+                        Nomor Peserta: <code class="bg-blue-100 px-1 rounded font-bold">G-2026002</code> / Pass: <code class="bg-blue-100 px-1 rounded font-bold">passbella</code> (9-B / Ruang 2)
                     </div>
 
                     <button type="submit" class="w-full bg-anbk-primary hover:bg-blue-900 text-white font-bold py-2.5 rounded shadow uppercase tracking-wider text-xs transition">
@@ -264,7 +264,7 @@
                         </p>
                         <div class="grid grid-cols-3 gap-y-2.5 gap-x-2">
                             <span class="font-bold text-slate-500">Nomor Peserta:</span>
-                            <span id="confirm-display-code" class="col-span-2 font-mono text-slate-900 font-extrabold">P-2007001</span>
+                            <span id="confirm-display-code" class="col-span-2 font-mono text-slate-900 font-extrabold">G-2026001</span>
 
                             <span class="font-bold text-slate-500">Nama Lengkap:</span>
                             <span id="confirm-display-name" class="col-span-2 text-slate-900 font-bold">-</span>
@@ -385,7 +385,7 @@
 
                     </div>
 
-                    <!-- Bottom Nav: Tombol Navigasi ASESMEN -->
+                    <!-- Bottom Nav: Tombol Navigasi ANBK -->
                     <div class="grid grid-cols-3 gap-3">
                         <!-- SOAL SEBELUMNYA -->
                         <button onclick="prevQuestion()" id="anbk-btn-prev" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-4 rounded shadow-sm border border-slate-600 flex items-center justify-center space-x-1.5 transition text-xs uppercase tracking-wider disabled:opacity-50">
@@ -481,7 +481,7 @@
                     <div class="grid grid-cols-3 gap-2 text-xs pt-4 border-t border-slate-200">
                         <div>
                             <span class="block text-slate-400">Benar</span>
-                            <span class="font-bold text-slate-800 text-sm font-mono" id="result-correct">4</span>
+                            <span class="font-bold text-slate-800 text-sm font-mono" id="result-correct font-mono" id="result-correct">4</span>
                         </div>
                         <div>
                             <span class="block text-slate-400">Salah</span>
@@ -531,7 +531,7 @@
                     </div>
                     <div class="p-3 bg-slate-50 rounded border text-[10px] text-slate-500 space-y-1">
                         <p class="font-bold">Akun Percobaan Bawaan:</p>
-                        <p>🔑 <span class="font-semibold">Admin Utama:</span> username <code class="bg-slate-200 px-1 rounded font-bold">admin</code> / password <code class="bg-slate-200 px-1 rounded font-bold">*****</code></p>
+                        <p>🔑 <span class="font-semibold">Admin Utama:</span> username <code class="bg-slate-200 px-1 rounded font-bold">admin</code> / password <code class="bg-slate-200 px-1 rounded font-bold">admin</code></p>
                         <p>🔑 <span class="font-semibold">Guru IPA 7, 8, 9 (Rombel A,B):</span> username <code class="bg-slate-200 px-1 rounded font-bold">guru1</code> / password <code class="bg-slate-200 px-1 rounded font-bold">123</code></p>
                     </div>
                     <button type="submit" class="w-full bg-anbk-primary hover:bg-blue-900 text-white font-bold py-2.5 rounded shadow uppercase tracking-wider text-xs transition">
@@ -593,11 +593,17 @@
                             </div>
                             
                             <!-- Timer setting untuk pengerjaan soal (Duration) -->
-                            <div class="grid grid-cols-1 gap-2">
+                            <div class="grid grid-cols-2 gap-2">
                                 <div>
-                                    <label class="block font-bold text-slate-700 uppercase mb-1">Durasi Pengerjaan Ujian (Menit)</label>
-                                    <input type="number" id="form-duration" required min="1" max="300" class="w-full px-3 py-2 border rounded font-semibold focus:outline-none focus:border-anbk-primary" placeholder="Default: 60 menit">
-                                    <p class="text-[9px] text-slate-400 mt-1">Sistem akan otomatis submit/autosave ujian ketika durasi menit ini berakhir.</p>
+                                    <label class="block font-bold text-slate-700 uppercase mb-1">Durasi (Menit)</label>
+                                    <input type="number" id="form-duration" required min="1" max="300" class="w-full px-3 py-2 border rounded font-semibold focus:outline-none focus:border-anbk-primary" placeholder="Default: 10">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 uppercase mb-1">Status Ketersediaan</label>
+                                    <select id="form-status" class="w-full px-3 py-2 border rounded font-bold bg-white focus:outline-none focus:border-anbk-primary">
+                                        <option value="aktif">Buka (Aktif)</option>
+                                        <option value="nonaktif">Tutup (Nonaktif)</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -710,12 +716,11 @@
                                         <option value="9">Kelas 9 saja</option>
                                         <option value="7,8">Kelas 7 & 8</option>
                                         <option value="8,9">Kelas 8 & 9</option>
-					<option value="7,9">Kelas 7 & 9</option>
                                         <option value="7,8,9">Lintas Tingkat (7, 8, 9 sekaligus)</option>
                                     </select>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label class="block font-bold text-slate-700 uppercase mb-1">Rombel (Bisa Centang Banyak)</label>
+                                    <label class="block font-bold text-slate-700 uppercase mb-1">Rombel Diajar (Bisa Centang Banyak)</label>
                                     <div class="grid grid-cols-4 gap-1.5 p-2 bg-slate-50 border rounded" id="reg-teacher-rombel-checkboxes">
                                         <!-- Checkboxes Rombel A-F -->
                                     </div>
@@ -749,7 +754,7 @@
                         <!-- PORTAL MANAJEMEN AKUN PESERTA UJIAN -->
                         <div id="proktor-users-panel" class="bg-white p-5 rounded-lg shadow-sm border border-slate-300 space-y-4">
                             <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider border-b pb-2 flex justify-between items-center">
-                                <span><i class="fa-solid fa-user-group mr-1.5 text-blue-600"></i>Registrasi Peserta ASESMEN & Password Unik</span>
+                                <span><i class="fa-solid fa-user-group mr-1.5 text-blue-600"></i>Registrasi Peserta Ujian ANBK & Password Unik</span>
                                 <span class="bg-indigo-100 text-indigo-800 text-[10px] px-2 py-0.5 rounded font-bold" id="proktor-users-count">2 Peserta</span>
                             </h3>
 
@@ -892,7 +897,8 @@
                                             <th class="p-2.5 font-bold uppercase text-[10px] w-24">Mata Pelajaran</th>
                                             <th class="p-2.5 font-bold uppercase text-[10px]">Wacana / Pertanyaan</th>
                                             <th class="p-2.5 font-bold uppercase text-[10px] w-16 text-center">Kelas & Rombel</th>
-                                            <th class="p-2.5 font-bold uppercase text-[10px] w-20 text-center">Tanggal</th>
+                                            <th class="p-2.5 font-bold uppercase text-[10px] w-16 text-center">Durasi</th>
+                                            <th class="p-2.5 font-bold uppercase text-[10px] w-16 text-center">Status</th>
                                             <th class="p-2.5 font-bold uppercase text-[10px] w-12 text-center">Kunci</th>
                                             <th class="p-2.5 font-bold uppercase text-[10px] w-24 text-center">Aksi</th>
                                         </tr>
@@ -996,7 +1002,8 @@
                 target_kelas: "8",
                 target_rombel: "A,B",
                 tanggal_ujian: "2026-05-28", // Hari Ini
-                duration: 10
+                duration: 10,
+                status: "aktif"
             },
             {
                 question: "Suhu tubuh manusia yang sehat umumnya berkisar antara $36^\\circ\\text{C}$ hingga $37^\\circ\\text{C}$. Jika dikonversi ke dalam satuan kelvin ($T = t + 273.15$), maka kisaran suhu tubuh manusia yang sehat dalam kelvin adalah...",
@@ -1012,7 +1019,8 @@
                 target_kelas: "8",
                 target_rombel: "A,B",
                 tanggal_ujian: "2026-05-28",
-                duration: 10
+                duration: 10,
+                status: "aktif"
             },
             {
                 question: "Perhatikan gambar hewan di bawah ini. Hewan tersebut melakukan adaptasi morfologi berupa bentuk paruh yang panjang dan runcing untuk menghisap nektar bunga.",
@@ -1028,7 +1036,8 @@
                 target_kelas: "8",
                 target_rombel: "A,B",
                 tanggal_ujian: "2026-05-28",
-                duration: 10
+                duration: 10,
+                status: "aktif"
             },
             {
                 question: "Hukum III Newton (Aksi-Reaksi) bekerja pada dua benda yang berbeda dengan besar gaya yang sama namun arahnya berlawanan ($\\vec{F}_{\\text{aksi}} = -\\vec{F}_{\\text{reaksi}}$).",
@@ -1044,14 +1053,15 @@
                 target_kelas: "8",
                 target_rombel: "A",
                 tanggal_ujian: "2026-05-28",
-                duration: 10
+                duration: 10,
+                status: "aktif"
             }
         ];
 
         // --- DATABASE PESERTA UJIAN ---
         const defaultStudents = [
-            { nis: "P-2008001", name: "BUDI SANTOSO", kelas: "8", rombel: "A", password: "passbudi", room: "RUANG 01", shift: "PAGI" },
-            { nis: "P-2009001", name: "BELLA CITRA LESTARI", kelas: "9", rombel: "B", password: "passbella", room: "RUANG 02", shift: "SIANG" }
+            { nis: "G-2026001", name: "BUDI SANTOSO", kelas: "8", rombel: "A", password: "passbudi", room: "RUANG 01", shift: "PAGI" },
+            { nis: "G-2026002", name: "BELLA CITRA LESTARI", kelas: "9", rombel: "B", password: "passbella", room: "RUANG 02", shift: "SIANG" }
         ];
 
         // --- DATABASE GURU MAPEL (DAFTAR HAK AKSES MENGAJAR MULTI ROMBEL & LINTAS TINGKAT) ---
@@ -1172,6 +1182,9 @@
 
             const formDuration = document.getElementById('form-duration');
             if (formDuration) formDuration.value = "";
+
+            const formStatus = document.getElementById('form-status');
+            if (formStatus) formStatus.value = "aktif";
 
             // Reset checkboxes rombel
             const masterAll = document.getElementById('form-rombel-all');
@@ -1350,13 +1363,14 @@
             if (!selectEl) return;
             selectEl.innerHTML = '';
 
-            // Saring soal yang ditargetkan untuk kelas siswa aktif DAN rombel aktif (atau SEMUA)
+            // Saring soal yang ditargetkan untuk kelas siswa aktif DAN rombel aktif (dan hanya yang berstatus aktif)
             const validClassQuestions = allQuestions.filter(q => {
                 const targetClassArray = q.target_kelas ? q.target_kelas.split(',').map(c => c.trim()) : [];
                 const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
                 
                 return targetClassArray.includes(activeStudentData.kelas) && 
-                    (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA");
+                    (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA") &&
+                    (!q.status || q.status === "aktif"); // Cek status ketersediaan soal
             });
             
             const subjects = [...new Set(validClassQuestions.map(q => q.subject || "Umum"))];
@@ -1403,21 +1417,24 @@
                 const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
                 return q.subject === subject && 
                     targetClassArray.includes(activeStudentData.kelas) && 
-                    (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA");
+                    (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA") &&
+                    (!q.status || q.status === "aktif");
             });
+
+            const matchQCount = allQuestions.filter(q => {
+                const targetClassArray = q.target_kelas ? q.target_kelas.split(',').map(c => c.trim()) : [];
+                const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
+                return q.subject === subject && 
+                    targetClassArray.includes(activeStudentData.kelas) && 
+                    (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA") &&
+                    (!q.status || q.status === "aktif");
+            }).length;
 
             // Tentukan sisa waktu pengerjaan dari setting manual guru/admin (duration) jika ada, jika tidak, hitung dinamis
             let calculatedTimeMins = 10; // Default fallback: 10 menit
             if (matchQ && matchQ.duration) {
                 calculatedTimeMins = parseInt(matchQ.duration);
             } else {
-                const matchQCount = allQuestions.filter(q => {
-                    const targetClassArray = q.target_kelas ? q.target_kelas.split(',').map(c => c.trim()) : [];
-                    const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
-                    return q.subject === subject && 
-                        targetClassArray.includes(activeStudentData.kelas) && 
-                        (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA");
-                }).length;
                 calculatedTimeMins = matchQCount * 2; 
             }
 
@@ -1475,17 +1492,18 @@
                 return;
             }
 
-            // Ambil soal ujian yang sesuai filter kelas DAN rombel siswa aktif
+            // Ambil soal ujian yang sesuai filter kelas DAN rombel siswa aktif (hanya yang aktif)
             filteredQuestions = allQuestions.filter(q => {
                 const targetClassArray = q.target_kelas ? q.target_kelas.split(',').map(c => c.trim()) : [];
                 const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
                 return q.subject === subject && 
                     targetClassArray.includes(activeStudentData.kelas) && 
-                    (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA");
+                    (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA") &&
+                    (!q.status || q.status === "aktif");
             });
             
             if (filteredQuestions.length === 0) {
-                showToast("Mata pelajaran ini tidak memiliki soal.");
+                showToast("Mata pelajaran ini tidak memiliki soal aktif.");
                 return;
             }
 
@@ -1705,13 +1723,18 @@
             }, 1000);
         }
 
-        // --- SUBMIT EXAM LOGIC ---
-        function openFinishModal() {
-            document.getElementById('finish-modal').classList.remove('hidden');
-        }
+        function resetCBT() {
+            document.getElementById('cbt-result-screen').classList.add('hidden');
+            document.getElementById('cbt-confirm-screen').classList.add('hidden');
+            document.getElementById('cbt-exam-screen').classList.add('hidden');
+            document.getElementById('cbt-login-screen').classList.remove('hidden');
+            document.getElementById('sub-navbar').classList.remove('hidden');
 
-        function closeFinishModal() {
-            document.getElementById('finish-modal').classList.add('hidden');
+            document.getElementById('input-username').value = '';
+            document.getElementById('input-password').value = '';
+            document.getElementById('input-token').value = '';
+
+            generateToken();
         }
 
         // --- MANAJEMEN AKUN PESERTA (SINGLE & BULK) ---
@@ -1860,7 +1883,7 @@
             if (importedCount > 0) {
                 localStorage.setItem('local_student_accounts', JSON.stringify(allStudents));
                 renderAdminStudentsTable();
-                showToast(`Berhasil mengimpor ${importedCount} siswa!${duplicateCount > 0 ? ` (${duplicateCount} duplikat diabaikan)` : ''}`);
+                showToast("Berhasil mengimpor " + importedCount + " siswa!");
                 document.getElementById('bulk-students-paste').value = ''; 
             } else {
                 showToast("Tidak ada siswa baru yang diimpor. Periksa kemungkinan data duplikat.");
@@ -1912,7 +1935,7 @@
                     if (importedCount > 0) {
                         localStorage.setItem('local_student_accounts', JSON.stringify(allStudents));
                         renderAdminStudentsTable();
-                        showToast(`Berhasil mengimpor ${importedCount} siswa dari CSV!`);
+                        showToast("Berhasil mengimpor " + importedCount + " siswa dari CSV!");
                     } else {
                         showToast("Gagal impor atau semua data peserta sudah terdaftar.");
                     }
@@ -2074,6 +2097,91 @@
             }
         }
 
+        // --- FUNGSI TOGGLE CEPAT STATUS SOAL (BUKA / TUTUP) ---
+        function toggleQuestionStatus(originalIdx) {
+            const q = allQuestions[originalIdx];
+            if (!q) return;
+
+            q.status = (q.status === "nonaktif") ? "aktif" : "nonaktif";
+            showToast(`Status soal berhasil diubah menjadi: ${q.status === 'aktif' ? 'BUKA (AKTIF)' : 'TUTUP (NONAKTIF)'}`);
+            renderAdminQuestionsTable();
+            populateSubjectSelect();
+        }
+
+        // --- FUNGSI UTAMA RENDER TABEL BANK SOAL ADMIN & GURU (PENTING) ---
+        function renderAdminQuestionsTable() {
+            const tbody = document.getElementById('admin-questions-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            let targetList = allQuestions;
+            
+            // FILTER HAK GURU MAPEL (Mengajar lintas tingkat & rombel)
+            if (currentUserRole === 'guru' && selectedGuruData) {
+                const allowedClasses = selectedGuruData.kelas ? selectedGuruData.kelas.split(',').map(c => c.trim()) : [];
+                const allowedRombels = selectedGuruData.rombel ? selectedGuruData.rombel.split(',').map(r => r.trim().toUpperCase()) : [];
+                
+                targetList = allQuestions.filter(q => {
+                    const targetClassArray = q.target_kelas ? q.target_kelas.split(',').map(c => c.trim()) : [];
+                    const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
+                    
+                    const isClassMatched = targetClassArray.some(c => allowedClasses.includes(c));
+                    const isRombelMatched = targetRombelArray.some(r => allowedRombels.includes(r)) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA";
+                    
+                    return q.subject === selectedGuruData.subject && isClassMatched && isRombelMatched;
+                });
+            }
+
+            if (targetList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-slate-400">Belum ada bank soal terdaftar di database lokal.</td></tr>`;
+                return;
+            }
+
+            targetList.forEach((q, idx) => {
+                const originalIdx = allQuestions.indexOf(q);
+                const hasWacana = q.wacana && q.wacana.trim() !== "";
+                const isAktif = !q.status || q.status === "aktif";
+
+                let optionImagesCount = 0;
+                ['opt_a', 'opt_b', 'opt_c', 'opt_d', 'opt_e'].forEach(optKey => {
+                    if (q[optKey] && isImageUrl(q[optKey])) {
+                        optionImagesCount++;
+                    }
+                });
+
+                const tr = document.createElement('tr');
+                tr.className = "border-b hover:bg-slate-50 transition text-xs";
+                tr.innerHTML = `
+                    <td class="p-2.5 text-center font-semibold text-slate-500 font-mono">${idx + 1}</td>
+                    <td class="p-2.5 font-bold text-anbk-primary text-[10px] break-words max-w-[120px]">${q.subject || 'Umum'}</td>
+                    <td class="p-2.5 text-slate-700 truncate max-w-xs">
+                        ${hasWacana ? `<span class="bg-blue-100 text-blue-800 text-[9px] px-1.5 py-0.5 rounded mr-1 font-bold">Wacana</span>` : ""}
+                        ${q.question}
+                    </td>
+                    <td class="p-2.5 text-center font-bold text-slate-600">Kelas ${q.target_kelas || '8'} (${q.target_rombel || 'SEMUA'})</td>
+                    <td class="p-2.5 text-center text-slate-500 font-mono text-[10px]">${q.duration || '10'}m</td>
+                    <td class="p-2.5 text-center">
+                        <button onclick="toggleQuestionStatus(${originalIdx})" class="px-2 py-1 rounded text-[9px] font-black uppercase tracking-wider transition ${
+                            isAktif 
+                            ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200 border border-emerald-300' 
+                            : 'bg-rose-100 text-red-800 hover:bg-rose-200 border border-red-300'
+                        }">
+                            <i class="fa-solid ${isAktif ? 'fa-lock-open mr-1' : 'fa-lock mr-1'}"></i>${isAktif ? 'Buka' : 'Tutup'}
+                        </button>
+                    </td>
+                    <td class="p-2.5 text-center font-bold text-emerald-700">
+                        ${q.key}
+                        ${optionImagesCount > 0 ? `<div class="text-[8px] text-blue-500 font-normal">(${optionImagesCount} Gbr Opsi)</div>` : ''}
+                    </td>
+                    <td class="p-2.5 text-center flex justify-center space-x-1">
+                        <button onclick="editQuestionInline(${originalIdx})" class="bg-amber-500 hover:bg-amber-600 text-white font-bold p-1 rounded text-[10px] transition"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                        <button onclick="deleteQuestionInline(${originalIdx})" class="bg-red-600 hover:bg-red-700 text-white font-bold p-1 rounded text-[10px] transition"><i class="fa-solid fa-trash-can"></i> Hapus</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
         // --- PORTAL LOGIN & WORKSPACE SYSTEM ---
         function renderPortalView() {
             const token = localStorage.getItem('portal_token');
@@ -2090,8 +2198,8 @@
                     document.getElementById('proktor-admin-only-panel').classList.remove('hidden');
                     document.getElementById('proktor-teachers-panel').classList.remove('hidden'); 
                     
-                    document.getElementById('admin-sheet-csv-url').value = localStorage.getItem('sheet_csv_url') || '';
-                    document.getElementById('admin-form-post-url').value = localStorage.getItem('form_post_url') || '';
+                    document.getElementById('admin-sheet-csv-url').value = localStorage.getItem('sheet_csv_url') || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLM2ZKdwouLrCIvRtb3r_F5DjpgVVQNBETs8NZGLy8HpLvAZjY__UZhpR-XmG7csmnZY3pZx0sBGFe/pub?gid=0&single=true&output=csv';
+                    document.getElementById('admin-form-post-url').value = localStorage.getItem('form_post_url') || 'https://docs.google.com/forms/d/e/1FAIpQLScnsskua5VsMVE0g_QfejuEI8o1_ea2vfR9jDMO2CTuty2Zhw/viewform?usp=publish-editor';
                     
                     document.getElementById('form-subject').disabled = false;
                     document.getElementById('form-target-kelas').disabled = false;
@@ -2158,7 +2266,7 @@
                     localStorage.setItem('portal_role', 'guru');
                     localStorage.setItem('portal_teacher_data', JSON.stringify(matchedTeacher));
                     selectedGuruData = matchedTeacher;
-                    showToast(`Login Guru Berhasil! (Mengajar Kelas ${matchedTeacher.kelas} Rombel ${matchedTeacher.rombel})`);
+                    showToast("Login Guru Berhasil! (Mengajar Kelas " + matchedTeacher.kelas + " Rombel " + matchedTeacher.rombel + ")");
                     renderPortalView();
                 } else {
                     showToast("ID Pengguna atau Password salah!");
@@ -2174,317 +2282,6 @@
             selectedGuruData = null;
             showToast("Anda telah keluar dari Portal Proktor.");
             renderPortalView();
-        }
-
-        // --- CRUD MANAJEMEN BANK SOAL ---
-        function renderAdminQuestionsTable() {
-            const tbody = document.getElementById('admin-questions-tbody');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            let targetList = allQuestions;
-            
-            if (currentUserRole === 'guru' && selectedGuruData) {
-                const allowedClasses = selectedGuruData.kelas ? selectedGuruData.kelas.split(',').map(c => c.trim()) : [];
-                const allowedRombels = selectedGuruData.rombel ? selectedGuruData.rombel.split(',').map(r => r.trim().toUpperCase()) : [];
-                
-                targetList = allQuestions.filter(q => {
-                    const targetClassArray = q.target_kelas ? q.target_kelas.split(',').map(c => c.trim()) : [];
-                    const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
-                    
-                    const isClassMatched = targetClassArray.some(c => allowedClasses.includes(c));
-                    const isRombelMatched = targetRombelArray.some(r => allowedRombels.includes(r)) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA";
-                    
-                    return q.subject === selectedGuruData.subject && isClassMatched && isRombelMatched;
-                });
-            }
-
-            if (targetList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">Belum ada bank soal terdaftar di database lokal.</td></tr>`;
-                return;
-            }
-
-            targetList.forEach((q, idx) => {
-                const originalIdx = allQuestions.indexOf(q);
-                const hasWacana = q.wacana && q.wacana.trim() !== "";
-
-                let optionImagesCount = 0;
-                ['opt_a', 'opt_b', 'opt_c', 'opt_d', 'opt_e'].forEach(optKey => {
-                    if (q[optKey] && isImageUrl(q[optKey])) {
-                        optionImagesCount++;
-                    }
-                });
-
-                const tr = document.createElement('tr');
-                tr.className = "border-b hover:bg-slate-50 transition";
-                tr.innerHTML = `
-                    <td class="p-2.5 text-center font-semibold text-slate-500 font-mono">${idx + 1}</td>
-                    <td class="p-2.5 font-bold text-anbk-primary text-[10px] break-words max-w-[120px]">${q.subject || 'Umum'}</td>
-                    <td class="p-2.5 text-slate-700 truncate max-w-xs">
-                        ${hasWacana ? `<span class="bg-blue-100 text-blue-800 text-[9px] px-1.5 py-0.5 rounded mr-1 font-bold">Wacana</span>` : ""}
-                        ${q.question}
-                    </td>
-                    <td class="p-2.5 text-center font-bold text-slate-600">Kelas ${q.target_kelas || '8'} (${q.target_rombel || 'SEMUA'})</td>
-                    <td class="p-2.5 text-center text-slate-500 font-mono text-[10px]">${q.tanggal_ujian || 'Bebas'}</td>
-                    <td class="p-2.5 text-center font-bold text-emerald-700">
-                        ${q.key}
-                        ${optionImagesCount > 0 ? `<div class="text-[8px] text-blue-500 font-normal">(${optionImagesCount} Gbr Opsi)</div>` : ''}
-                    </td>
-                    <td class="p-2.5 text-center flex justify-center space-x-1">
-                        <button onclick="editQuestionInline(${originalIdx})" class="bg-amber-500 hover:bg-amber-600 text-white font-bold p-1 rounded text-[10px] transition"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                        <button onclick="deleteQuestionInline(${originalIdx})" class="bg-red-600 hover:bg-red-700 text-white font-bold p-1 rounded text-[10px] transition"><i class="fa-solid fa-trash-can"></i> Hapus</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function renderAdminResultsTable() {
-            const tbody = document.getElementById('admin-results-tbody');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            if (localExamResults.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-3 text-center text-slate-400">Belum ada siswa yang menyelesaikan ujian di sesi browser ini.</td></tr>`;
-                return;
-            }
-
-            localExamResults.forEach(res => {
-                const tr = document.createElement('tr');
-                tr.className = "border-b hover:bg-slate-50";
-                tr.innerHTML = `
-                    <td class="p-2 text-center font-bold text-slate-800">${res.name}</td>
-                    <td class="p-2 text-center font-mono font-bold">${res.nis}</td>
-                    <td class="p-2 text-center text-slate-600">${res.subject}</td>
-                    <td class="p-2 text-center text-emerald-700 font-extrabold font-mono">${res.score}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function handleSaveQuestion(event) {
-            event.preventDefault();
-            
-            const wacanaText = document.getElementById('form-wacana').value.trim();
-            const imageUrl = document.getElementById('form-image').value.trim();
-            const questionText = document.getElementById('form-question').value.trim();
-            const opt_a = document.getElementById('form-opt-a').value.trim();
-            const opt_b = document.getElementById('form-opt-b').value.trim();
-            const opt_c = document.getElementById('form-opt-c').value.trim();
-            const opt_d = document.getElementById('form-opt-d').value.trim();
-            const opt_e = document.getElementById('form-opt-e').value.trim();
-            const key = document.getElementById('form-key').value;
-            const tanggalUjian = document.getElementById('form-tanggal-ujian').value;
-            const durationVal = document.getElementById('form-duration').value.trim();
-
-            const subject = currentUserRole === 'admin' 
-                ? document.getElementById('form-subject').value.trim().toUpperCase()
-                : selectedGuruData.subject;
-
-            const targetKelas = document.getElementById('form-target-kelas').value;
-
-            const selectedRombels = [];
-            const allCheckbox = document.getElementById('form-rombel-all');
-            if (allCheckbox && allCheckbox.checked) {
-                selectedRombels.push("SEMUA");
-            } else {
-                availableRombels.forEach(r => {
-                    const el = document.getElementById(`form-rombel-${r}`);
-                    if (el && el.checked) {
-                        selectedRombels.push(r);
-                    }
-                });
-            }
-
-            if (selectedRombels.length === 0) {
-                showToast("Pilih minimal satu Target Rombel!");
-                return;
-            }
-
-            const targetRombelString = selectedRombels.join(',');
-
-            if (!questionText || !opt_a || !opt_b || !subject || !tanggalUjian) {
-                showToast("Lengkapi semua field pertanyaan minimal Opsi A & B!");
-                return;
-            }
-
-            const payload = {
-                wacana: wacanaText,
-                image: imageUrl,
-                question: questionText,
-                opt_a: opt_a,
-                opt_b: opt_b,
-                opt_c: opt_c,
-                opt_d: opt_d,
-                opt_e: opt_e,
-                key: key,
-                subject: subject,
-                target_kelas: targetKelas,
-                target_rombel: targetRombelString,
-                tanggal_ujian: tanggalUjian,
-                duration: durationVal ? parseInt(durationVal) : 10
-            };
-
-            if (editingQuestionIdx === -1) {
-                allQuestions.push(payload);
-                showToast("Berhasil menambahkan soal baru!");
-            } else {
-                allQuestions[editingQuestionIdx] = payload;
-                showToast("Berhasil memperbarui soal!");
-            }
-
-            resetQuestionForm();
-            renderAdminQuestionsTable();
-            populateSubjectSelect();
-        }
-
-        // --- CUSTOM CONFIRM MODALS FOR SECURE SYSTEM ---
-        window.deleteQuestionInline = function(originalIdx) {
-            pendingDeleteIdx = originalIdx;
-            document.getElementById('delete-confirm-modal').classList.remove('hidden');
-            
-            document.getElementById('btn-delete-confirm-execute').onclick = function() {
-                if (pendingDeleteIdx !== -1) {
-                    allQuestions.splice(pendingDeleteIdx, 1);
-                    showToast("Soal berhasil dihapus!");
-                    renderAdminQuestionsTable();
-                    populateSubjectSelect();
-                    closeDeleteConfirmModal();
-                }
-            };
-        }
-
-        function closeDeleteConfirmModal() {
-            document.getElementById('delete-confirm-modal').classList.add('hidden');
-            pendingDeleteIdx = -1;
-        }
-
-        window.editQuestionInline = function(originalIdx) {
-            editingQuestionIdx = originalIdx;
-            const q = allQuestions[originalIdx];
-
-            document.getElementById('form-question-title').innerHTML = `<span class="text-amber-600 font-bold"><i class="fa-solid fa-pen"></i> Mode Edit Soal #${originalIdx + 1}</span>`;
-            document.getElementById('btn-cancel-edit').classList.remove('hidden');
-
-            document.getElementById('form-question-idx').value = originalIdx;
-            document.getElementById('form-subject').value = q.subject || '';
-            document.getElementById('form-wacana').value = q.wacana || '';
-            document.getElementById('form-image').value = q.image || '';
-            document.getElementById('form-question').value = q.question;
-            document.getElementById('form-opt-a').value = q.opt_a;
-            document.getElementById('form-opt-b').value = q.opt_b;
-            document.getElementById('form-opt-c').value = q.opt_c || '';
-            document.getElementById('form-opt-d').value = q.opt_d || '';
-            document.getElementById('form-opt-e').value = q.opt_e || '';
-            document.getElementById('form-key').value = q.key;
-            
-            if (currentUserRole === 'admin') {
-                document.getElementById('form-target-kelas').value = q.target_kelas || "8";
-            }
-
-            const targetRombels = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
-            
-            const masterAll = document.getElementById('form-rombel-all');
-            if (targetRombels.includes("SEMUA")) {
-                if (masterAll) masterAll.checked = true;
-                availableRombels.forEach(r => {
-                    const el = document.getElementById(`form-rombel-${r}`);
-                    if (el) el.checked = true;
-                });
-            } else {
-                if (masterAll) masterAll.checked = false;
-                availableRombels.forEach(r => {
-                    const el = document.getElementById(`form-rombel-${r}`);
-                    if (el) el.checked = targetRombels.includes(r);
-                });
-            }
-            
-            document.getElementById('form-tanggal-ujian').value = q.tanggal_ujian || "";
-            document.getElementById('form-duration').value = q.duration || "";
-            document.getElementById('form-question').focus();
-        }
-
-        // --- EKSPOR & IMPOR CSV LOKAL ---
-        function exportQuestionsCSV() {
-            let questionsToExport = allQuestions;
-            if (currentUserRole === 'guru' && selectedGuruData) {
-                const allowedClasses = selectedGuruData.kelas ? selectedGuruData.kelas.split(',').map(c => c.trim()) : [];
-                const allowedRombels = selectedGuruData.rombel ? selectedGuruData.rombel.split(',').map(r => r.trim().toUpperCase()) : [];
-                
-                questionsToExport = allQuestions.filter(q => {
-                    const targetClassArray = q.target_kelas ? q.target_kelas.split(',').map(c => c.trim()) : [];
-                    const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
-                    
-                    const isClassMatched = targetClassArray.some(c => allowedClasses.includes(c));
-                    const isRombelMatched = targetRombelArray.some(r => allowedRombels.includes(r)) || targetRombelArray.includes("SEMUA");
-                    
-                    return q.subject === selectedGuruData.subject && isClassMatched && isRombelMatched;
-                });
-            }
-
-            if (questionsToExport.length === 0) {
-                showToast("Tidak ada soal yang bisa diekspor!");
-                return;
-            }
-
-            const csvContent = Papa.unparse(questionsToExport);
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
-            const url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            
-            const fileName = currentUserRole === 'guru' && selectedGuruData
-                ? `bank_soal_${selectedGuruData.subject.replace(/\s+/g, '_')}_Kls${selectedGuruData.kelas}.csv` 
-                : "semua_bank_soal_anbk.csv";
-
-            link.setAttribute("download", fileName);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showToast("Sukses mengekspor CSV!");
-        }
-
-        function importQuestionsCSV(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            Papa.parse(file, {
-                header: true,
-                skipEmptyLines: true,
-                complete: function(results) {
-                    const parsedData = results.data;
-                    
-                    if (parsedData.length > 0 && parsedData[0].question && parsedData[0].key) {
-                        
-                        if (currentUserRole === 'guru' && selectedGuruData) {
-                            parsedData.forEach(q => {
-                                q.subject = selectedGuruData.subject;
-                                q.target_kelas = selectedGuruData.kelas;
-                                q.target_rombel = selectedGuruData.rombel; 
-                            });
-                        }
-
-                        parsedData.forEach(q => {
-                            if (!q.target_kelas) q.target_kelas = "8";
-                            if (!q.target_rombel) q.target_rombel = "SEMUA";
-                            if (!q.tanggal_ujian) q.tanggal_ujian = "2026-05-28";
-                            if (!q.duration) q.duration = 10;
-                        });
-
-                        allQuestions = [...allQuestions, ...parsedData];
-                        renderAdminQuestionsTable();
-                        populateSubjectSelect();
-                        showToast(`Berhasil mengimpor ${parsedData.length} soal tambahan!`);
-                        document.getElementById('import-csv-file').value = "";
-                    } else {
-                        showToast("Format CSV tidak didukung! Pastikan header sesuai.");
-                    }
-                },
-                error: function(err) {
-                    showToast("Gagal membaca berkas CSV.");
-                }
-            });
         }
 
         // --- SINKRONISASI ONLINE ---
@@ -2543,13 +2340,14 @@
                             if (!q.target_rombel) q.target_rombel = "SEMUA";
                             if (!q.tanggal_ujian) q.tanggal_ujian = "2026-05-28";
                             if (!q.duration) q.duration = 10;
+                            if (!q.status) q.status = "aktif";
                         });
 
                         allQuestions = parsedData;
                         updateBadgeState(true);
                         populateSubjectSelect();
                         if (currentUserRole) renderAdminQuestionsTable();
-                        showToast(`Berhasil sinkronisasi ${allQuestions.length} soal ANBK dari Google Sheets!`);
+                        showToast("Berhasil sinkronisasi " + allQuestions.length + " soal ANBK dari Google Sheets!");
                     } else {
                         showToast("Format kolom CSV salah! Silakan baca petunjuk di Langkah 1.");
                         resetConfigToDefault();
@@ -2572,6 +2370,52 @@
                 } else {
                     badge.className = "inline-flex items-center px-2.5 py-1 rounded text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200";
                     badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-indigo-500 mr-1.5 animate-pulse"></span> Mode Simulasi Bawaan`;
+                }
+            }
+        }
+
+        // --- FUNGSI PILIHAN LMS KATEGORI ---
+        function selectLmsCategory(cat) {
+            const numBtn = document.getElementById('lms-cat-numerasi');
+            const readBtn = document.getElementById('lms-cat-membaca');
+            if (numBtn) numBtn.className = "p-3 bg-slate-100 text-slate-700 font-semibold rounded-lg cursor-pointer text-xs uppercase hover:bg-slate-200";
+            if (readBtn) readBtn.className = "p-3 bg-slate-100 text-slate-700 font-semibold rounded-lg cursor-pointer text-xs uppercase hover:bg-slate-200";
+            
+            const activeEl = document.getElementById(`lms-cat-${cat}`);
+            if (activeEl) {
+                activeEl.className = "p-3 bg-anbk-primary text-white font-semibold rounded-lg cursor-pointer text-xs uppercase";
+            }
+
+            const contentBox = document.getElementById('lms-content-box');
+            if (contentBox) {
+                if (cat === 'numerasi') {
+                    contentBox.innerHTML = `
+                        <h4 class="font-bold text-slate-800 text-lg">Literasi Numerasi (Matematika)</h4>
+                        <p class="text-xs text-slate-500 mt-1">Fokus pada penalaran matematika mengenai bilangan, aljabar, geometri, dan analisis data.</p>
+                        <div class="mt-6 space-y-4 text-sm text-slate-600 leading-relaxed">
+                            <h5 class="font-semibold text-slate-800">Contoh Kisi-Kisi Soal ANBK:</h5>
+                            <p>Siswa diharapkan mampu menganalisis sistem persamaan linear dua variabel dalam studi kasus nyata lingkungan sosial-ekonomi masyarakat.</p>
+                            <div class="bg-white border p-4 rounded-lg font-mono text-xs text-anbk-primary">
+                                Kompetensi: Representasi Aljabar<br>
+                                Domain: Bilangan & Struktur Aljabar<br>
+                                Level Kognitif: L2 (Aplikasi)
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    contentBox.innerHTML = `
+                        <h4 class="font-bold text-slate-800 text-lg">Literasi Membaca (Bahasa Indonesia & Inggris)</h4>
+                        <p class="text-xs text-slate-500 mt-1">Memahami, menggunakan, mengevaluasi, dan merefleksikan berbagai jenis teks untuk menyelesaikan masalah.</p>
+                        <div class="mt-6 space-y-4 text-sm text-slate-600 leading-relaxed">
+                            <h5 class="font-semibold text-slate-800">Contoh Kisi-Kisi Soal ANBK:</h5>
+                            <p>Menganalisis teks informasi ilmiah kompleks untuk mengambil kesimpulan logis mengenai perubahan iklim global berdasarkan argumentasi penulis.</p>
+                            <div class="bg-white border p-4 rounded-lg font-mono text-xs text-anbk-primary">
+                                Kompetensi: Evaluasi & Refleksi Informasi<br>
+                                Domain: Teks Informasi Ilmiah<br>
+                                Level Kognitif: L3 (Evaluasi Tinggi)
+                            </div>
+                        </div>
+                    `;
                 }
             }
         }
