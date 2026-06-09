@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.mathbf.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
@@ -96,9 +96,9 @@
                     <span>Beranda Gateway</span>
                 </button>
 
-                <p class="pt-4 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 font-bold text-slate-400" id="header-menu-admin">Menu Pengawas</p>
+                <p class="pt-4 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 font-bold text-slate-400 hidden" id="header-menu-admin">Menu Pengawas</p>
 
-                <button onclick="switchTab('kelola-soal')" id="nav-kelola-soal" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:bg-slate-800 hover:text-white">
+                <button onclick="switchTab('kelola-soal')" id="nav-kelola-soal" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:bg-slate-800 hover:text-white hidden">
                     <div class="flex items-center gap-3">
                         <i class="fa-solid fa-file-signature w-5 text-center"></i>
                         <span>Kelola Soal</span>
@@ -106,7 +106,7 @@
                     <i id="lock-kelola-soal" class="fa-solid fa-lock text-xs text-slate-500"></i>
                 </button>
 
-                <button onclick="switchTab('sheet-mapel')" id="nav-sheet-mapel" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:bg-slate-800 hover:text-white">
+                <button onclick="switchTab('sheet-mapel')" id="nav-sheet-mapel" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:bg-slate-800 hover:text-white hidden">
                     <div class="flex items-center gap-3">
                         <i class="fa-solid fa-table w-5 text-center text-emerald-400"></i>
                         <span>Sheet Mapel</span>
@@ -117,12 +117,17 @@
                     </div>
                 </button>
 
-                <button onclick="switchTab('kelola-peserta')" id="nav-kelola-peserta" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:bg-slate-800 hover:text-white">
+                <button onclick="switchTab('kelola-peserta')" id="nav-kelola-peserta" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:bg-slate-800 hover:text-white hidden">
                     <div class="flex items-center gap-3">
                         <i class="fa-solid fa-users-gear w-5 text-center text-blue-400"></i>
                         <span>Kelola Peserta</span>
                     </div>
                     <i id="lock-kelola-peserta" class="fa-solid fa-lock text-xs text-slate-500"></i>
+                </button>
+
+                <button onclick="switchTab('portal-admin')" id="nav-portal-admin" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-user-shield w-5 text-center text-amber-500"></i>
+                    <span>Portal Pengawas</span>
                 </button>
 
                 <p class="pt-4 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 font-bold text-slate-400">Peta Mapel Aktif</p>
@@ -163,7 +168,7 @@
                     <span class="text-sm font-semibold text-slate-500" id="current-section-title">Dashboard</span>
                 </div>
                 <div class="flex items-center gap-4">
-                    <div class="bg-amber-100 border border-amber-200 text-amber-800 text-xs px-3 py-1.5 rounded-lg font-mono font-black" id="header-token-viewer">
+                    <div class="bg-amber-100 border border-amber-200 text-amber-800 text-xs px-3 py-1.5 rounded-lg font-mono font-black animate-pulse" id="header-token-viewer">
                         TOKEN PROKTOR: <span id="token-code-val" class="font-bold">-</span>
                     </div>
                     <div class="text-right hidden sm:block">
@@ -934,6 +939,7 @@
                    (cleanUrl.startsWith('http') && (cleanUrl.includes('images.unsplash.com') || cleanUrl.includes('drive.google.com/uc')));
         }
 
+        // --- DETEKSI APAKAH STRING ADALAH URL VIDEO ---
         function isVideoUrl(url) {
             if (!url) return false;
             const cleanUrl = url.trim();
@@ -1171,15 +1177,28 @@
             switchTab("dashboard");
         }
 
+        // --- DETEKSI LOCK UI DAN VISIBILITAS MENU SECARA DINAMIS (KUNCI PERBAIKAN) ---
         function updateLockUI() {
             const lockSoal = document.getElementById("lock-kelola-soal");
             const lockSheet = document.getElementById("lock-sheet-mapel");
-            const lockPeserta = document.getElementById("lock-sheet-mapel");
+            const lockPeserta = document.getElementById("lock-kelola-peserta");
             const adminLoginView = document.getElementById("admin-login-view");
             const adminProfileView = document.getElementById("admin-profile-view");
             const roleBadge = document.getElementById("app-role-badge");
 
+            // Memanggil elemen-elemen menu sidebar
+            const headerMenuAdmin = document.getElementById("header-menu-admin");
+            const navKelolaSoal = document.getElementById("nav-kelola-soal");
+            const navSheetMapel = document.getElementById("nav-sheet-mapel");
+            const navKelolaPeserta = document.getElementById("nav-kelola-peserta");
+
             if (isAdminLoggedIn) {
+                // Tampilkan menu administrasi penuh
+                if (headerMenuAdmin) headerMenuAdmin.classList.remove("hidden");
+                if (navKelolaSoal) navKelolaSoal.classList.remove("hidden");
+                if (navSheetMapel) navSheetMapel.classList.remove("hidden");
+                if (navKelolaPeserta) navKelolaPeserta.classList.remove("hidden");
+
                 if (lockSoal) lockSoal.className = "fa-solid fa-lock-open text-xs text-emerald-500";
                 if (lockSheet) lockSheet.className = "fa-solid fa-lock-open text-xs text-emerald-500";
                 if (lockPeserta) lockPeserta.className = "fa-solid fa-lock-open text-xs text-emerald-500";
@@ -1192,9 +1211,14 @@
                 document.getElementById("admin-display-role").innerText = "Administrator Master CBT";
                 document.getElementById("admin-welcome-text").innerHTML = "Akses Master Terbuka. Anda memiliki otorisasi penuh mengonfigurasi Tanggal Ujian, Token, Durasi Menit, Buka/Tutup Soal, serta Spreadsheet Nilai & Siswa.";
             } else if (isTeacherLoggedIn && loggedInGuru) {
+                // Tampilkan menu kecuali menu Kelola Peserta
+                if (headerMenuAdmin) headerMenuAdmin.classList.remove("hidden");
+                if (navKelolaSoal) navKelolaSoal.classList.remove("hidden");
+                if (navSheetMapel) navSheetMapel.classList.remove("hidden");
+                if (navKelolaPeserta) navKelolaPeserta.classList.add("hidden"); 
+
                 if (lockSoal) lockSoal.className = "fa-solid fa-lock-open text-xs text-blue-400";
                 if (lockSheet) lockSheet.className = "fa-solid fa-lock-open text-xs text-blue-400";
-                if (lockPeserta) lockPeserta.className = "fa-solid fa-lock text-xs text-slate-500";
                 if (adminLoginView) adminLoginView.classList.add("hidden");
                 if (adminProfileView) adminProfileView.classList.remove("hidden");
                 if (roleBadge) roleBadge.innerText = "Guru: " + loggedInGuru.mapel;
@@ -1204,9 +1228,12 @@
                 document.getElementById("admin-display-role").innerText = "Guru Pengampu: " + loggedInGuru.mapel;
                 document.getElementById("admin-welcome-text").innerHTML = `Anda login sebagai guru pengampu mata pelajaran <strong>${loggedInGuru.mapel}</strong>. Akses dibatasi khusus mengedit soal dan memantau draf spreadsheet ${loggedInGuru.mapel} saja.`;
             } else {
-                if (lockSoal) lockSoal.className = "fa-solid fa-lock text-xs text-slate-500";
-                if (lockSheet) lockSheet.className = "fa-solid fa-lock text-xs text-slate-500";
-                if (lockPeserta) lockPeserta.className = "fa-solid fa-lock text-xs text-slate-500";
+                // Sembunyikan menu administrasi secara total dari pandangan siswa (Sesuai permintaan user)
+                if (headerMenuAdmin) headerMenuAdmin.classList.add("hidden");
+                if (navKelolaSoal) navKelolaSoal.classList.add("hidden");
+                if (navSheetMapel) navSheetMapel.classList.add("hidden");
+                if (navKelolaPeserta) navKelolaPeserta.classList.add("hidden");
+
                 if (adminLoginView) adminLoginView.classList.remove("hidden");
                 if (adminProfileView) adminProfileView.classList.add("hidden");
                 if (roleBadge) roleBadge.innerText = "Gateway Portal";
@@ -1583,6 +1610,34 @@
             switchTab("cbt-confirm");
         }
 
+        // --- UTILS ANTI-CHEAT ---
+        function enableAntiCheatSystem() {
+            window.onblur = function() {
+                if (currentTab === 'cbt-running') {
+                    tabCheatViolations++;
+                    if (tabCheatViolations >= 3) {
+                        showToast("PELANGGARAN MAKSIMAL!", "Ujian ditutup paksa karena sering meninggalkan tab ujian.", "error");
+                        finishQuiz();
+                    } else {
+                        showToast("Kecurangan Terdeteksi!", `Peringatan #${tabCheatViolations}: Dilarang meninggalkan tab browser ujian aktif!`, "warning");
+                    }
+                }
+            };
+        }
+
+        function disableAntiCheatSystem() {
+            window.onblur = null;
+        }
+
+        function tryToRequestFullScreen() {
+            const element = document.documentElement;
+            if (element.requestFullscreen) {
+                element.requestFullscreen().catch(() => {});
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            }
+        }
+
         function resetCBT() {
             document.getElementById("siswa-username").value = "";
             document.getElementById("siswa-password").value = "";
@@ -1636,524 +1691,18 @@
             switchTab("cbt-running");
         }
 
-        function renderActiveQuestion() {
-            const currentQ = filteredQuestions[currentQuestionIdx];
-            document.getElementById("anbk-current-num").innerText = currentQuestionIdx + 1;
-
-            const wacanaPanel = document.getElementById("anbk-wacana-panel");
-            const contentPanel = document.getElementById("anbk-question-content-panel");
-
-            if (currentQ.wacana && currentQ.wacana.trim() !== "") {
-                wacanaPanel.classList.remove("hidden");
-                document.getElementById("anbk-wacana-container").innerHTML = currentQ.wacana;
-                contentPanel.className = "w-full md:w-1/2 p-6 flex flex-col justify-between overflow-y-auto max-h-[480px] custom-scrollbar";
-            } else {
-                wacanaPanel.classList.add("hidden");
-                contentPanel.className = "w-full p-6 flex flex-col justify-between overflow-y-auto max-h-[480px] custom-scrollbar";
-            }
-
-            const mediaContainer = document.getElementById("anbk-media-container");
-            if (currentQ.media && currentQ.media.trim() !== "") {
-                mediaContainer.classList.remove("hidden");
-                mediaContainer.innerHTML = renderMediaCbtPlayer(currentQ.media);
-            } else {
-                mediaContainer.classList.add("hidden");
-                mediaContainer.innerHTML = "";
-            }
-
-            document.getElementById("anbk-question-container").innerHTML = currentQ.soal;
-
-            const container = document.getElementById("anbk-options-container");
-            container.innerHTML = "";
-
-            const optKeys = ["A", "B", "C", "D"];
-            const optLabels = [currentQ.a, currentQ.b, currentQ.c, currentQ.d];
-
-            optKeys.forEach((key, oIdx) => {
-                const selected = studentAnswers[currentQuestionIdx] === key;
-                const textVal = optLabels[oIdx];
-                const optButton = document.createElement("button");
-                optButton.onclick = () => selectAnswer(key);
-                optButton.className = `w-full text-left p-3.5 rounded-xl border-2 transition-all flex items-center gap-3 ${
-                    selected 
-                    ? 'border-emerald-500 bg-emerald-50/50 text-emerald-950 font-bold' 
-                    : 'border-slate-100 hover:bg-slate-50 text-slate-700'
-                }`;
-
-                let mediaPart = "";
-                if (isImageUrl(textVal) || isVideoUrl(textVal)) {
-                    mediaPart = `<div class="p-1 border bg-white rounded max-w-[200px] mt-1">${renderMediaCbtPlayer(textVal)}</div>`;
-                } else {
-                    mediaPart = `<span class="opt-text-el text-sm leading-relaxed">${textVal}</span>`;
-                }
-
-                optButton.innerHTML = `
-                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold border transition ${
-                        selected 
-                        ? 'bg-emerald-500 text-white border-emerald-500 shadow-sm' 
-                        : 'bg-white border-slate-300 text-slate-600'
-                    }">${key}</span>
-                    <div class="flex-grow">${mediaPart}</div>
-                `;
-                container.appendChild(optButton);
-            });
-
-            document.getElementById("anbk-flag-checkbox").checked = flaggedQuestions[currentQuestionIdx] === true;
-
-            const btnPrev = document.getElementById("anbk-btn-prev");
-            btnPrev.disabled = currentQuestionIdx === 0;
-
-            const btnNext = document.getElementById("anbk-btn-next");
-            if (currentQuestionIdx === filteredQuestions.length - 1) {
-                btnNext.innerHTML = `<span>Konfirmasi</span> <i class="fa-solid fa-check-double text-[10px]"></i>`;
-            } else {
-                btnNext.innerHTML = `<span>Berikutnya</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>`;
-            }
-
-            changeFontSize(activeFontSize);
-            triggerMathJaxRender();
-        }
-
-        function renderNavigationGrid() {
-            const grid = document.getElementById("anbk-nav-grid");
-            if (!grid) return;
-            grid.innerHTML = "";
-
-            filteredQuestions.forEach((_, idx) => {
-                const isCurrent = idx === currentQuestionIdx;
-                const studentAns = studentAnswers[idx];
-                const isAnswered = studentAns !== undefined;
-                const isFlagged = flaggedQuestions[idx] === true;
-
-                let bgClass = "bg-white border-2 border-slate-300 text-slate-700 hover:bg-slate-50";
-                if (isAnswered) bgClass = "bg-anbk-primary text-white border-anbk-primary";
-                if (isFlagged) bgClass = "bg-anbk-accent text-anbk-blue border-anbk-accent";
-                if (isCurrent) bgClass += " ring-2 ring-offset-1 ring-anbk-primary";
-
-                const btn = document.createElement("button");
-                btn.onclick = () => jumpToQuestion(idx);
-                btn.className = `w-11 h-11 rounded-lg font-bold text-sm flex flex-col items-center justify-center shadow-sm relative transition-all ${bgClass}`;
-                btn.innerHTML = `
-                    <span>${idx + 1}</span>
-                    ${isAnswered ? `<span class="absolute bottom-0 right-1 text-[9px] font-black uppercase text-inherit">${studentAns}</span>` : ''}
-                `;
-                grid.appendChild(btn);
-            });
-
-            const answeredCount = Object.keys(studentAnswers).length;
-            document.getElementById("anbk-nav-ratio").innerText = `${answeredCount}/${filteredQuestions.length}`;
-        }
-
-        function jumpToQuestion(idx) {
-            currentQuestionIdx = idx;
-            renderActiveQuestion();
-            renderNavigationGrid();
-        }
-
-        function toggleFlag() {
-            flaggedQuestions[currentQuestionIdx] = !flaggedQuestions[currentQuestionIdx];
-            renderNavigationGrid();
-        }
-
-        // --- PENYELARASAN LAYAR PENUH & SELESAI ---
-        function openFinishModal() {
-            document.getElementById("finish-modal").classList.remove("hidden");
-        }
-
-        function closeFinishModal() {
-            document.getElementById("finish-modal").classList.add("hidden");
-        }
-
-        // ==========================================
-        // SPREADSHEET (GOOGLE SHEETS STYLE) ENGINE
-        // ==========================================
-        function toggleSheetType(type) {
-            activeSheetType = type;
-            const btnSoal = document.getElementById("btn-sheet-type-soal");
-            const btnNilai = document.getElementById("btn-sheet-type-nilai");
-
-            if (type === 'soal') {
-                btnSoal.className = "px-3 py-1.5 rounded text-xs font-semibold transition-all bg-white text-emerald-900 shadow";
-                btnNilai.className = "px-3 py-1.5 rounded text-xs font-semibold transition-all text-white hover:bg-white/10";
-            } else {
-                btnNilai.className = "px-3 py-1.5 rounded text-xs font-semibold transition-all bg-white text-emerald-900 shadow";
-                btnSoal.className = "px-3 py-1.5 rounded text-xs font-semibold transition-all text-white hover:bg-white/10";
-            }
-
-            selectedCell = { row: null, col: null };
-            document.getElementById("active-cell-indicator").innerText = "A1";
-            document.getElementById("formula-bar").value = "";
-
-            renderSpreadsheet();
-        }
-
-        function renderSheetTabs() {
-            const container = document.getElementById("sheet-mapel-tabs");
-            if (!container) return;
-            container.innerHTML = "";
-
-            for (let mapel in db) {
-                if (isTeacherLoggedIn && loggedInGuru && loggedInGuru.mapel !== mapel) {
-                    continue;
-                }
-
-                const isActive = activeSheetMapel === mapel;
-                const tab = document.createElement("button");
-                tab.onclick = () => {
-                    activeSheetMapel = mapel;
-                    selectedCell = { row: null, col: null };
-                    document.getElementById("active-cell-indicator").innerText = "A1";
-                    document.getElementById("formula-bar").value = "";
-                    renderSheetTabs();
-                    renderSpreadsheet();
-                };
-                tab.className = `px-3 py-1 rounded text-xs font-semibold flex items-center gap-1.5 transition-all border ${
-                    isActive 
-                    ? 'bg-white border-slate-300 text-emerald-700 shadow-sm' 
-                    : 'bg-slate-200/50 border-slate-200 text-slate-600 hover:bg-slate-200'
-                }`;
-                
-                let iconColor = "text-blue-500";
-                if (mapel === "IPA") iconColor = "text-green-500";
-                if (mapel === "Bahasa Indonesia") iconColor = "text-orange-500";
-                if (mapel === "Bahasa Inggris") iconColor = "text-purple-500";
-
-                tab.innerHTML = `<span class="w-2 h-2 rounded-full ${iconColor} inline-block"></span> ${mapel}`;
-                container.appendChild(tab);
-            }
-        }
-
-        function renderSpreadsheet() {
-            renderSheetTabs();
-            const grid = document.getElementById("excel-grid");
-            if (!grid) return;
-            grid.innerHTML = "";
-
-            let data = [];
-            let headers = [];
-            let colWidths = [];
-
-            if (activeSheetType === "soal") {
-                headers = ["ID SOAL", "PERTANYAAN", "OPSI A", "OPSI B", "OPSI C", "OPSI D", "MEDIA", "KUNCI", "BOBOT", "STATUS"];
-                colWidths = ["8%", "28%", "10%", "10%", "10%", "10%", "10%", "4%", "5%", "5%"];
-                
-                db[activeSheetMapel].soal.forEach(s => {
-                    data.push([
-                        s.id || "",
-                        s.soal || "",
-                        s.a || "",
-                        s.b || "",
-                        s.c || "",
-                        s.d || "",
-                        s.media || "",
-                        s.kunci || "",
-                        s.bobot || "10",
-                        s.status || "aktif"
-                    ]);
-                });
-            } else {
-                headers = ["NO", "NAMA SISWA", "TANGGAL", "TOTAL SOAL", "JAWABAN BENAR", "SKOR AKHIR", "STATUS EVALUASI"];
-                colWidths = ["5%", "35%", "15%", "10%", "10%", "10%", "15%"];
-
-                db[activeSheetMapel].nilai.forEach(n => {
-                    data.push([
-                        n.no || "",
-                        n.nama || "",
-                        n.tanggal || "",
-                        n.total_soal || "",
-                        n.benar || "",
-                        n.skor || "",
-                        n.status || ""
-                    ]);
-                });
-            }
-
-            document.getElementById("sheet-title-display").innerHTML = `
-                Sistem-Siswa-AutoSync &bull; ${activeSheetMapel} - ${activeSheetType === 'soal' ? 'Sheet Soal' : 'Sheet Nilai'}
-            `;
-
-            const colgroup = document.createElement("colgroup");
-            colgroup.innerHTML = `<col style="width: 40px;">` + colWidths.map(w => `<col style="width: ${w};">`).join('');
-            grid.appendChild(colgroup);
-
-            const headerRow = document.createElement("tr");
-            headerRow.className = "bg-slate-50 text-slate-500 font-semibold border-b border-slate-300 text-center select-none sticky top-0 z-10";
+        function navigateQuiz(dir) {
+            const nextIdx = currentQuestionIdx + dir;
             
-            const thCorner = document.createElement("th");
-            thCorner.className = "border-r border-slate-300 h-6 bg-slate-200/60";
-            headerRow.appendChild(thCorner);
-
-            headers.forEach((h, colIdx) => {
-                const colLetter = String.fromCharCode(65 + colIdx);
-                const th = document.createElement("th");
-                th.className = "border-r border-slate-300 px-2 py-1 bg-slate-200/60 text-[10px] font-bold text-slate-600";
-                th.innerHTML = `
-                    <div class="flex flex-col">
-                        <span>${colLetter}</span>
-                        <span class="text-[9px] font-medium text-slate-400 capitalize truncate">${h}</span>
-                    </div>
-                `;
-                headerRow.appendChild(th);
-            });
-            grid.appendChild(headerRow);
-
-            const rowsCount = Math.max(data.length, 12);
-
-            for (let rIdx = 0; rIdx < rowsCount; rIdx++) {
-                const tr = document.createElement("tr");
-                tr.className = "border-b border-slate-200 bg-white hover:bg-emerald-50/10 transition-colors";
-
-                const tdNum = document.createElement("td");
-                tdNum.className = "bg-slate-100 border-r border-slate-300 font-bold text-center text-slate-500 select-none h-8 w-10 text-[10px] bg-slate-200/30";
-                tdNum.innerText = rIdx + 1;
-                tr.appendChild(tdNum);
-
-                const rowData = data[rIdx] || Array(headers.length).fill("");
-
-                for (let cIdx = 0; cIdx < headers.length; cIdx++) {
-                    const value = rowData[cIdx];
-                    const td = document.createElement("td");
-                    const isSelected = selectedCell.row === rIdx && selectedCell.col === cIdx;
-
-                    td.className = `border-r border-slate-200 px-3 py-1.5 truncate relative select-all transition-all duration-100 ${
-                        isSelected 
-                        ? 'ring-2 ring-emerald-500 bg-emerald-50/40 outline-none z-10' 
-                        : 'focus:bg-emerald-50/20'
-                    }`;
-
-                    if (headers[cIdx] === "STATUS EVALUASI") {
-                        if (value === "LULUS") td.className += " font-semibold text-emerald-600";
-                        if (value === "REMIDI") td.className += " font-semibold text-rose-500";
-                    }
-                    if (headers[cIdx] === "STATUS") {
-                        if (value === "aktif") td.className += " font-semibold text-emerald-600";
-                        if (value === "nonaktif") td.className += " font-semibold text-rose-500";
-                    }
-
-                    td.innerHTML = `<span class="block w-full h-full min-h-[1.5rem] focus:outline-none" contenteditable="true" onblur="saveCellChange(this, ${rIdx}, ${cIdx})" onclick="selectCell(${rIdx}, ${cIdx}, '${value}')">${value}</span>`;
-                    tr.appendChild(td);
-                }
-                grid.appendChild(tr);
+            if (nextIdx >= 0 && nextIdx < filteredQuestions.length) {
+                currentQuestionIdx = nextIdx;
+                renderActiveQuestion();
+                renderNavigationGrid();
+            } else if (nextIdx >= filteredQuestions.length) {
+                openFinishModal();
             }
         }
 
-        function selectCell(row, col, value) {
-            selectedCell = { row, col };
-            const colLetter = String.fromCharCode(65 + col);
-            document.getElementById("active-cell-indicator").innerText = `${colLetter}${row + 1}`;
-            document.getElementById("formula-bar").value = value;
-            renderSpreadsheet();
-        }
-
-        function handleFormulaInput(value) {
-            if (selectedCell.row === null || selectedCell.col === null) return;
-            updateDatabaseCell(selectedCell.row, selectedCell.col, value);
-        }
-
-        function saveCellChange(element, row, col) {
-            const newValue = element.innerText.trim();
-            updateDatabaseCell(row, col, newValue);
-        }
-
-        function updateDatabaseCell(row, col, value) {
-            if (activeSheetType === "soal") {
-                while (db[activeSheetMapel].soal.length <= row) {
-                    db[activeSheetMapel].soal.push({ id: "", soal: "", a: "", b: "", c: "", d: "", media: "", kunci: "A", bobot: 10, status: "aktif" });
-                }
-
-                const item = db[activeSheetMapel].soal[row];
-                const fields = ["id", "soal", "a", "b", "c", "d", "media", "kunci", "bobot", "status"];
-                const targetField = fields[col];
-
-                if (targetField === "bobot") {
-                    item[targetField] = Number(value) || 0;
-                } else {
-                    item[targetField] = value;
-                }
-            } else {
-                while (db[activeSheetMapel].nilai.length <= row) {
-                    db[activeSheetMapel].nilai.push({ no: row + 1, nama: "", tanggal: "", total_soal: 0, benar: 0, skor: 0, status: "" });
-                }
-
-                const item = db[activeSheetMapel].nilai[row];
-                const fields = ["no", "nama", "tanggal", "total_soal", "benar", "skor", "status"];
-                const targetField = fields[col];
-
-                if (targetField === "no" || targetField === "total_soal" || targetField === "benar" || targetField === "skor") {
-                    item[targetField] = Number(value) || 0;
-                } else {
-                    item[targetField] = value;
-                }
-            }
-            saveDatabase();
-        }
-
-        function tambahBarisManual() {
-            if (activeSheetType === "soal") {
-                const count = db[activeSheetMapel].soal.length + 1;
-                db[activeSheetMapel].soal.push({
-                    id: `SOAL-${String(count).padStart(2, '0')}`,
-                    soal: "Pertanyaan Baru (Klik sel untuk mengedit langsung)",
-                    a: "Jawaban A",
-                    b: "Jawaban B",
-                    c: "Jawaban C",
-                    d: "Jawaban D",
-                    media: "",
-                    kunci: "A",
-                    bobot: 10,
-                    status: "aktif"
-                });
-                showToast("Baris Disisipkan!", "Satu baris soal baru terdaftar di piringan spreadsheet.", "success");
-            } else {
-                const count = db[activeSheetMapel].nilai.length + 1;
-                db[activeSheetMapel].nilai.push({
-                    no: count,
-                    nama: "Siswa Manual",
-                    tanggal: new Date().toISOString().split('T')[0],
-                    total_soal: 0,
-                    benar: 0,
-                    skor: 0,
-                    status: "LULUS"
-                });
-                showToast("Baris Disisipkan!", "Satu baris nilai kustom ditambahkan ke rekapitulasi.", "success");
-            }
-            saveDatabase();
-            renderSpreadsheet();
-        }
-
-        function exportToCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,";
-            let headers = [];
-            let rows = [];
-
-            if (activeSheetType === "soal") {
-                headers = ["ID SOAL", "PERTANYAAN", "OPSI A", "OPSI B", "OPSI C", "OPSI D", "MEDIA", "KUNCI", "BOBOT", "STATUS"];
-                db[activeSheetMapel].soal.forEach(s => {
-                    rows.push([s.id, s.soal, s.a, s.b, s.c, s.d, s.media, s.kunci, s.bobot, s.status]);
-                });
-            } else {
-                headers = ["NO", "NAMA SISWA", "TANGGAL", "TOTAL SOAL", "JAWABAN BENAR", "SKOR AKHIR", "STATUS"];
-                db[activeSheetMapel].nilai.forEach(n => {
-                    rows.push([n.no, n.nama, n.tanggal, n.total_soal, n.benar, n.skor, n.status]);
-                });
-            }
-
-            csvContent += headers.map(h => `"${h}"`).join(",") + "\n";
-            rows.forEach(r => {
-                csvContent += r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",") + "\n";
-            });
-
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Rekap_${activeSheetMapel}_${activeSheetType}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            showToast("Ekspor Sukses!", "File CSV berhasil terunduh.", "success");
-        }
-
-        // --- SISTEM PEMUTAR CBT ---
-        function changeFontSize(size) {
-            activeFontSize = size;
-            const questionBox = document.getElementById("anbk-question-container");
-            const wacanaBox = document.getElementById("anbk-wacana-container");
-            const optionsContainer = document.getElementById("anbk-options-container");
-
-            ['small', 'medium', 'large'].forEach(s => {
-                const btn = document.getElementById(`font-btn-${s}`);
-                if (btn) btn.className = "w-7 h-7 bg-white text-slate-800 text-xs font-bold rounded-lg shadow-sm border border-slate-200 hover:bg-slate-50";
-            });
-
-            const targetBtn = document.getElementById(`font-btn-${size}`);
-            if (targetBtn) targetBtn.className = "w-7 h-7 bg-anbk-primary text-white text-xs font-bold rounded-lg shadow-sm border border-anbk-primary";
-
-            if (questionBox && optionsContainer) {
-                if (size === "small") {
-                    questionBox.className = "text-slate-800 leading-relaxed text-xs whitespace-pre-line font-semibold";
-                    if (wacanaBox) wacanaBox.className = "text-slate-700 leading-relaxed text-xs whitespace-pre-line font-serif";
-                    optionsContainer.querySelectorAll(".opt-text-el").forEach(span => span.className = "opt-text-el text-xs leading-relaxed");
-                } else if (size === "medium") {
-                    questionBox.className = "text-slate-800 leading-relaxed text-sm whitespace-pre-line font-semibold";
-                    if (wacanaBox) wacanaBox.className = "text-slate-700 leading-relaxed text-sm whitespace-pre-line font-serif";
-                    optionsContainer.querySelectorAll(".opt-text-el").forEach(span => span.className = "opt-text-el text-sm leading-relaxed");
-                } else {
-                    questionBox.className = "text-slate-800 leading-relaxed text-lg whitespace-pre-line font-semibold";
-                    if (wacanaBox) wacanaBox.className = "text-slate-700 leading-relaxed text-lg whitespace-pre-line font-serif";
-                    optionsContainer.querySelectorAll(".opt-text-el").forEach(span => span.className = "opt-text-el text-lg leading-relaxed");
-                }
-            }
-        }
-
-        // --- VALIDASI PENGAWAS ---
-        function updateSubjectTimer() {
-            const selectEl = document.getElementById("exam-subject-anbk");
-            if (!selectEl) return;
-
-            const subject = selectEl.value;
-            const validationBox = document.getElementById("schedule-validation-alert");
-            const submitBtn = document.getElementById("btn-submit-ujian");
-            const scheduleDisplay = document.getElementById("confirm-display-schedule");
-
-            if (!subject || subject === "") {
-                if (validationBox) {
-                    validationBox.className = "p-3.5 rounded-xl text-xs font-semibold leading-relaxed border bg-rose-50 border-rose-200 text-rose-800 flex items-start space-x-2";
-                    validationBox.innerHTML = `<i class="fa-solid fa-circle-xmark mt-0.5"></i> <span>Ujian mapel kelas Anda belum aktif. Hubungi proktor.</span>`;
-                    validationBox.classList.remove("hidden");
-                }
-                if (submitBtn) submitBtn.disabled = true;
-                if (scheduleDisplay) scheduleDisplay.innerText = "-";
-                return;
-            }
-
-            const matchQ = allQuestions.find(q => {
-                const targetClassArray = q.target_kelas ? q.target_kelas.split(',').map(c => c.trim()) : [];
-                const targetRombelArray = q.target_rombel ? q.target_rombel.split(',').map(r => r.trim().toUpperCase()) : [];
-                return q.mapel === subject && 
-                    targetClassArray.includes(activeStudentData.kelas) && 
-                    (targetRombelArray.includes(activeStudentData.rombel) || targetRombelArray.includes("SEMUA") || q.target_rombel === "SEMUA") &&
-                    (!q.status || q.status === "aktif");
-            });
-
-            let calculatedTimeMins = 10;
-            if (matchQ && matchQ.duration) {
-                calculatedTimeMins = parseInt(matchQ.duration);
-            }
-
-            const timerPrepDisplay = document.getElementById("prep-timer-display");
-            if (timerPrepDisplay) timerPrepDisplay.innerText = `${calculatedTimeMins} Menit`;
-            totalTimeSeconds = calculatedTimeMins * 60;
-
-            const scheduledDateStr = matchQ ? matchQ.tanggal_ujian : "";
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-            const todayStr = `${yyyy}-${mm}-${dd}`;
-
-            if (scheduleDisplay) {
-                scheduleDisplay.innerText = scheduledDateStr ? formatDateIndonesian(scheduledDateStr) : "Bebas Pelaksanaan";
-            }
-
-            if (scheduledDateStr && scheduledDateStr !== todayStr) {
-                if (validationBox) {
-                    validationBox.className = "p-3.5 rounded-xl text-xs font-semibold leading-relaxed border bg-rose-50 border-rose-200 text-rose-800 flex items-start space-x-2";
-                    validationBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation mt-0.5 text-rose-600"></i> <span>Ujian dijadwalkan tanggal <strong>${formatDateIndonesian(scheduledDateStr)}</strong>. Anda dilarang masuk hari ini.</span>`;
-                    validationBox.classList.remove("hidden");
-                }
-                if (submitBtn) submitBtn.disabled = true;
-            } else {
-                if (validationBox) {
-                    validationBox.className = "p-3.5 rounded-xl text-xs font-semibold leading-relaxed border bg-emerald-50 border-emerald-200 text-emerald-800 flex items-start space-x-2";
-                    validationBox.innerHTML = `<i class="fa-solid fa-circle-check mt-0.5 text-emerald-600"></i> <span>Otorisasi Disetujui. Jadwal ujian aktif hari ini.</span>`;
-                    validationBox.classList.remove("hidden");
-                }
-                if (submitBtn) submitBtn.disabled = false;
-            }
-        }
-
-        // --- SUBMIT EXAM & SIMPAN HASIL ---
         function finishQuiz(isTimeout = false) {
             clearInterval(examTimerInterval);
             closeFinishModal();
